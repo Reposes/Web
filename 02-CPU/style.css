@@ -1,0 +1,17 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family:/* 'Segoe UI';*/ Roboto Condensed;
+    font-size: 24px;
+}
+p
+{
+    text-align: justify;
+}
+figure
+{
+    text-align: center;
+    font-style: italic;
+    font-size: 16px;
+}
