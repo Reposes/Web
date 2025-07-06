@@ -21,9 +21,10 @@ figure
     margin: 20px 0;
 }
 
-ul
+ul /*непосредственная вложенность*/
 {
     color: cornflowerblue;
+    list-style-type:none;
 }
 
 /* Стиль для примечаний */
@@ -51,4 +52,22 @@ ul
         background-size: contain; /* Масштабирование */
         margin-right: 8px; /* Отступ от текста */
         vertical-align: middle; /* Выравнивание по центру */
+    }
+    a
+    {
+        color:gray;
+    }
+        /*
+        element:pseudo-class{}  https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+        element:pseudo-element{} https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements
+        */
+    a:visited
+    {
+        color:darkblue;
+    }
+    a:hover
+    {
+        font-weight:800;  
+        /*font-size:32px; так лучше не делать, элементы не должны ездить по странице*/
+        background-color:orange;
     }
