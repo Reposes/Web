@@ -2,16 +2,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
-    font-family:/* 'Segoe UI';*/ Roboto Condensed;
+    font-family: /* 'Segoe UI';*/ Roboto Condensed;
     font-size: 24px;
+    margin: 150px;
 }
 p
 {
     text-align: justify;
+}
+p span.first-words {
+    font-weight: bold;
 }
 figure
 {
     text-align: center;
     font-style: italic;
     font-size: 16px;
+    margin: 20px 0;
 }
+
+ul
+{
+    color: cornflowerblue;
+}
+
+/* Стиль для примечаний */
+.note {
+    font-style: italic;
+    color: #555; /* Серый цвет */
+    padding-left: 30px; /* Отступ слева для иконки */
+    text-indent: -15px; /* Выступ текста под иконку */
+
+    margin: 20px 0; /* Отступы между примечаниями */
+    line-height: 1.5; /* Межстрочный интервал */
+    position: relative; /* Для позиционирования иконки */
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid #6c757d;
+}
+
+    /* Псевдоэлемент с иконкой */
+    .note::before {
+        content: ""; /* Обязательное свойство */
+        display: block;
+        width: 20px; /* Ширина иконки */
+        height: 20px; /* Высота иконки */
+        background-image: url('img\quotes.PNG'); /* Путь к картинке */
+        background-size: contain; /* Масштабирование */
+        margin-right: 8px; /* Отступ от текста */
+        vertical-align: middle; /* Выравнивание по центру */
+    }
