@@ -1,0 +1,1531 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Периодическая таблица элементов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 align="center">Таблица Менделеева</h1>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color alkali-metal"></div>Щелочные металлы</div>
+        <div class="legend-item"><div class="legend-color alkaline-earth"></div>Щелочноземельные</div>
+        <div class="legend-item"><div class="legend-color transition-metal"></div>Переходные металлы</div>
+        <div class="legend-item"><div class="legend-color basic-metal"></div>Постпереходные металлы</div>
+        <div class="legend-item"><div class="legend-color metalloid"></div>Полуметаллы</div>
+        <div class="legend-item"><div class="legend-color nonmetal"></div>Неметаллы</div>
+        <div class="legend-item"><div class="legend-color halogen"></div>Галогены</div>
+        <div class="legend-item"><div class="legend-color noble-gas"></div>Благородные газы</div>
+        <div class="legend-item"><div class="legend-color lanthanide"></div>Лантаноиды</div>
+        <div class="legend-item"><div class="legend-color actinide"></div>Актиноиды</div>
+    </div>
+
+    <div class="periodic-table" id="periodic-table"></div>
+
+    <script>
+        const elements = [
+            // Период 1
+            {
+                number: 1,
+                symbol: 'H',
+                nameRu: 'Водород',
+                nameEn: 'Hydrogen',
+                category: 'nonmetal',
+                relativeAtomicMass: 1.008,
+                stableOxidationState: [-1, +1],
+                atomicRadius: 53,
+                period: 1,
+                group: 1
+            },
+            {
+                number: 2,
+                symbol: 'He',
+                nameRu: 'Гелий',
+                nameEn: 'Helium',
+                category: 'noble-gas',
+                relativeAtomicMass: 4.0026,
+                stableOxidationState: 0,
+                atomicRadius: 31,
+                period: 1,
+                group: 18
+            },
+
+            // Период 2
+            {
+                number: 3,
+                symbol: 'Li',
+                nameRu: 'Литий',
+                nameEn: 'Lithium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 6.94,
+                stableOxidationState: +1,
+                atomicRadius: 167,
+                period: 2,
+                group: 1
+            },
+            {
+                number: 4,
+                symbol: 'Be',
+                nameRu: 'Бериллий',
+                nameEn: 'Beryllium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 9.0122,
+                stableOxidationState: +2,
+                atomicRadius: 112,
+                period: 2,
+                group: 2
+            },
+            {
+                number: 5,
+                symbol: 'B',
+                nameRu: 'Бор',
+                nameEn: 'Boron',
+                category: 'metalloid',
+                relativeAtomicMass: 10.81,
+                stableOxidationState: +3,
+                atomicRadius: 87,
+                period: 2,
+                group: 13
+            },
+            {
+                number: 6,
+                symbol: 'C',
+                nameRu: 'Углерод',
+                nameEn: 'Carbon',
+                category: 'nonmetal',
+                relativeAtomicMass: 12.011,
+                stableOxidationState: [-4, +4],
+                atomicRadius: 67,
+                period: 2,
+                group: 14
+            },
+            {
+                number: 7,
+                symbol: 'N',
+                nameRu: 'Азот',
+                nameEn: 'Nitrogen',
+                category: 'nonmetal',
+                relativeAtomicMass: 14.007,
+                stableOxidationState: [-3, +3, +5],
+                atomicRadius: 56,
+                period: 2,
+                group: 15
+            },
+            {
+                number: 8,
+                symbol: 'O',
+                nameRu: 'Кислород',
+                nameEn: 'Oxygen',
+                category: 'nonmetal',
+                relativeAtomicMass: 15.999,
+                stableOxidationState: -2,
+                atomicRadius: 48,
+                period: 2,
+                group: 16
+            },
+            {
+                number: 9,
+                symbol: 'F',
+                nameRu: 'Фтор',
+                nameEn: 'Fluorine',
+                category: 'halogen',
+                relativeAtomicMass: 18.998,
+                stableOxidationState: -1,
+                atomicRadius: 42,
+                period: 2,
+                group: 17
+            },
+            {
+                number: 10,
+                symbol: 'Ne',
+                nameRu: 'Неон',
+                nameEn: 'Neon',
+                category: 'noble-gas',
+                relativeAtomicMass: 20.180,
+                stableOxidationState: 0,
+                atomicRadius: 38,
+                period: 2,
+                group: 18
+            },
+
+            // Период 3
+            {
+                number: 11,
+                symbol: 'Na',
+                nameRu: 'Натрий',
+                nameEn: 'Sodium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 22.990,
+                stableOxidationState: +1,
+                atomicRadius: 190,
+                period: 3,
+                group: 1
+            },
+            {
+                number: 12,
+                symbol: 'Mg',
+                nameRu: 'Магний',
+                nameEn: 'Magnesium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 24.305,
+                stableOxidationState: +2,
+                atomicRadius: 145,
+                period: 3,
+                group: 2
+            },
+            {
+                number: 13,
+                symbol: 'Al',
+                nameRu: 'Алюминий',
+                nameEn: 'Aluminum',
+                category: 'basic-metal',
+                relativeAtomicMass: 26.982,
+                stableOxidationState: +3,
+                atomicRadius: 118,
+                period: 3,
+                group: 13
+            },
+            {
+                number: 14,
+                symbol: 'Si',
+                nameRu: 'Кремний',
+                nameEn: 'Silicon',
+                category: 'metalloid',
+                relativeAtomicMass: 28.085,
+                stableOxidationState: [-4, +4],
+                atomicRadius: 111,
+                period: 3,
+                group: 14
+            },
+            {
+                number: 15,
+                symbol: 'P',
+                nameRu: 'Фосфор',
+                nameEn: 'Phosphorus',
+                category: 'nonmetal',
+                relativeAtomicMass: 30.974,
+                stableOxidationState: [-3, +3, +5],
+                atomicRadius: 98,
+                period: 3,
+                group: 15
+            },
+            {
+                number: 16,
+                symbol: 'S',
+                nameRu: 'Сера',
+                nameEn: 'Sulfur',
+                category: 'nonmetal',
+                relativeAtomicMass: 32.06,
+                stableOxidationState: [-2, +4, +6],
+                atomicRadius: 88,
+                period: 3,
+                group: 16
+            },
+            {
+                number: 17,
+                symbol: 'Cl',
+                nameRu: 'Хлор',
+                nameEn: 'Chlorine',
+                category: 'halogen',
+                relativeAtomicMass: 35.45,
+                stableOxidationState: [-1, +1, +3, +5, +7],
+                atomicRadius: 79,
+                period: 3,
+                group: 17
+            },
+            {
+                number: 18,
+                symbol: 'Ar',
+                nameRu: 'Аргон',
+                nameEn: 'Argon',
+                category: 'noble-gas',
+                relativeAtomicMass: 39.948,
+                stableOxidationState: 0,
+                atomicRadius: 71,
+                period: 3,
+                group: 18
+            },
+
+            // Период 4
+            {
+                number: 19,
+                symbol: 'K',
+                nameRu: 'Калий',
+                nameEn: 'Potassium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 39.098,
+                stableOxidationState: +1,
+                atomicRadius: 243,
+                period: 4,
+                group: 1
+            },
+            {
+                number: 20,
+                symbol: 'Ca',
+                nameRu: 'Кальций',
+                nameEn: 'Calcium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 40.078,
+                stableOxidationState: +2,
+                atomicRadius: 194,
+                period: 4,
+                group: 2
+            },
+            {
+                number: 21,
+                symbol: 'Sc',
+                nameRu: 'Скандий',
+                nameEn: 'Scandium',
+                category: 'transition-metal',
+                relativeAtomicMass: 44.956,
+                stableOxidationState: +3,
+                atomicRadius: 184,
+                period: 4,
+                group: 3
+            },
+            {
+                number: 22,
+                symbol: 'Ti',
+                nameRu: 'Титан',
+                nameEn: 'Titanium',
+                category: 'transition-metal',
+                relativeAtomicMass: 47.867,
+                stableOxidationState: [+2, +3, +4],
+                atomicRadius: 176,
+                period: 4,
+                group: 4
+            },
+            {
+                number: 23,
+                symbol: 'V',
+                nameRu: 'Ванадий',
+                nameEn: 'Vanadium',
+                category: 'transition-metal',
+                relativeAtomicMass: 50.942,
+                stableOxidationState: [+2, +3, +4, +5],
+                atomicRadius: 171,
+                period: 4,
+                group: 5
+            },
+            {
+                number: 24,
+                symbol: 'Cr',
+                nameRu: 'Хром',
+                nameEn: 'Chromium',
+                category: 'transition-metal',
+                relativeAtomicMass: 51.996,
+                stableOxidationState: [+2, +3, +6],
+                atomicRadius: 166,
+                period: 4,
+                group: 6
+            },
+            {
+                number: 25,
+                symbol: 'Mn',
+                nameRu: 'Марганец',
+                nameEn: 'Manganese',
+                category: 'transition-metal',
+                relativeAtomicMass: 54.938,
+                stableOxidationState: [+2, +3, +4, +6, +7],
+                atomicRadius: 161,
+                period: 4,
+                group: 7
+            },
+            {
+                number: 26,
+                symbol: 'Fe',
+                nameRu: 'Железо',
+                nameEn: 'Iron',
+                category: 'transition-metal',
+                relativeAtomicMass: 55.845,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 156,
+                period: 4,
+                group: 8
+            },
+            {
+                number: 27,
+                symbol: 'Co',
+                nameRu: 'Кобальт',
+                nameEn: 'Cobalt',
+                category: 'transition-metal',
+                relativeAtomicMass: 58.933,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 152,
+                period: 4,
+                group: 9
+            },
+            {
+                number: 28,
+                symbol: 'Ni',
+                nameRu: 'Никель',
+                nameEn: 'Nickel',
+                category: 'transition-metal',
+                relativeAtomicMass: 58.693,
+                stableOxidationState: +2,
+                atomicRadius: 149,
+                period: 4,
+                group: 10
+            },
+            {
+                number: 29,
+                symbol: 'Cu',
+                nameRu: 'Медь',
+                nameEn: 'Copper',
+                category: 'transition-metal',
+                relativeAtomicMass: 63.546,
+                stableOxidationState: [+1, +2],
+                atomicRadius: 145,
+                period: 4,
+                group: 11
+            },
+            {
+                number: 30,
+                symbol: 'Zn',
+                nameRu: 'Цинк',
+                nameEn: 'Zinc',
+                category: 'transition-metal',
+                relativeAtomicMass: 65.38,
+                stableOxidationState: +2,
+                atomicRadius: 142,
+                period: 4,
+                group: 12
+            },
+            {
+                number: 31,
+                symbol: 'Ga',
+                nameRu: 'Галлий',
+                nameEn: 'Gallium',
+                category: 'basic-metal',
+                relativeAtomicMass: 69.723,
+                stableOxidationState: +3,
+                atomicRadius: 136,
+                period: 4,
+                group: 13
+            },
+            {
+                number: 32,
+                symbol: 'Ge',
+                nameRu: 'Германий',
+                nameEn: 'Germanium',
+                category: 'metalloid',
+                relativeAtomicMass: 72.630,
+                stableOxidationState: [+2, +4],
+                atomicRadius: 125,
+                period: 4,
+                group: 14
+            },
+            {
+                number: 33,
+                symbol: 'As',
+                nameRu: 'Мышьяк',
+                nameEn: 'Arsenic',
+                category: 'metalloid',
+                relativeAtomicMass: 74.922,
+                stableOxidationState: [-3, +3, +5],
+                atomicRadius: 114,
+                period: 4,
+                group: 15
+            },
+            {
+                number: 34,
+                symbol: 'Se',
+                nameRu: 'Селен',
+                nameEn: 'Selenium',
+                category: 'nonmetal',
+                relativeAtomicMass: 78.971,
+                stableOxidationState: [-2, +4, +6],
+                atomicRadius: 103,
+                period: 4,
+                group: 16
+            },
+            {
+                number: 35,
+                symbol: 'Br',
+                nameRu: 'Бром',
+                nameEn: 'Bromine',
+                category: 'halogen',
+                relativeAtomicMass: 79.904,
+                stableOxidationState: [-1, +1, +3, +5],
+                atomicRadius: 94,
+                period: 4,
+                group: 17
+            },
+            {
+                number: 36,
+                symbol: 'Kr',
+                nameRu: 'Криптон',
+                nameEn: 'Krypton',
+                category: 'noble-gas',
+                relativeAtomicMass: 83.798,
+                stableOxidationState: 0,
+                atomicRadius: 88,
+                period: 4,
+                group: 18
+            },
+
+            // Период 5 (сокращённо)
+            {
+                number: 37,
+                symbol: 'Rb',
+                nameRu: 'Рубидий',
+                nameEn: 'Rubidium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 85.468,
+                stableOxidationState: +1,
+                atomicRadius: 265,
+                period: 5,
+                group: 1
+            },
+            {
+                number: 38,
+                symbol: 'Sr',
+                nameRu: 'Стронций',
+                nameEn: 'Strontium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 87.62,
+                stableOxidationState: +2,
+                atomicRadius: 219,
+                period: 5,
+                group: 2
+            },
+            {
+                number: 39,
+                symbol: 'Y',
+                nameRu: 'Иттрий',
+                nameEn: 'Yttrium',
+                category: 'transition-metal',
+                relativeAtomicMass: 88.906,
+                stableOxidationState: +3,
+                atomicRadius: 212,
+                period: 5,
+                group: 3
+            },
+            {
+                number: 40,
+                symbol: 'Zr',
+                nameRu: 'Цирконий',
+                nameEn: 'Zirconium',
+                category: 'transition-metal',
+                relativeAtomicMass: 91.224,
+                stableOxidationState: +4,
+                atomicRadius: 160,
+                period: 5,
+                group: 4
+            },
+            {
+                number: 41,
+                symbol: 'Nb',
+                nameRu: 'Ниобий',
+                nameEn: 'Niobium',
+                category: 'transition-metal',
+                relativeAtomicMass: 92.906,
+                stableOxidationState: +5,
+                atomicRadius: 146,
+                period: 5,
+                group: 5
+            },
+            {
+                number: 42,
+                symbol: 'Mo',
+                nameRu: 'Молибден',
+                nameEn: 'Molybdenum',
+                category: 'transition-metal',
+                relativeAtomicMass: 95.95,
+                stableOxidationState: [+4, +6],
+                atomicRadius: 139,
+                period: 5,
+                group: 6
+            },
+            {
+                number: 43,
+                symbol: 'Tc',
+                nameRu: 'Технеций',
+                nameEn: 'Technetium',
+                category: 'transition-metal',
+                relativeAtomicMass: 98,
+                stableOxidationState: [+4, +7],
+                atomicRadius: 136,
+                period: 5,
+                group: 7
+            },
+            {
+                number: 44,
+                symbol: 'Ru',
+                nameRu: 'Рутений',
+                nameEn: 'Ruthenium',
+                category: 'transition-metal',
+                relativeAtomicMass: 101.07,
+                stableOxidationState: [+2, +3, +4, +6, +8],
+                atomicRadius: 134,
+                period: 5,
+                group: 8
+            },
+            {
+                number: 45,
+                symbol: 'Rh',
+                nameRu: 'Родий',
+                nameEn: 'Rhodium',
+                category: 'transition-metal',
+                relativeAtomicMass: 102.91,
+                stableOxidationState: [+2, +3, +4],
+                atomicRadius: 134,
+                period: 5,
+                group: 9
+            },
+            {
+                number: 46,
+                symbol: 'Pd',
+                nameRu: 'Палладий',
+                nameEn: 'Palladium',
+                category: 'transition-metal',
+                relativeAtomicMass: 106.42,
+                stableOxidationState: [+2, +4],
+                atomicRadius: 137,
+                period: 5,
+                group: 10
+            },
+            {
+                number: 47,
+                symbol: 'Ag',
+                nameRu: 'Серебро',
+                nameEn: 'Silver',
+                category: 'transition-metal',
+                relativeAtomicMass: 107.87,
+                stableOxidationState: +1,
+                atomicRadius: 144,
+                period: 5,
+                group: 11
+            },
+            {
+                number: 48,
+                symbol: 'Cd',
+                nameRu: 'Кадмий',
+                nameEn: 'Cadmium',
+                category: 'transition-metal',
+                relativeAtomicMass: 112.41,
+                stableOxidationState: +2,
+                atomicRadius: 151,
+                period: 5,
+                group: 12
+            },
+            {
+                number: 49,
+                symbol: 'In',
+                nameRu: 'Индий',
+                nameEn: 'Indium',
+                category: 'basic-metal',
+                relativeAtomicMass: 114.82,
+                stableOxidationState: +3,
+                atomicRadius: 167,
+                period: 5,
+                group: 13
+            },
+            {
+                number: 50,
+                symbol: 'Sn',
+                nameRu: 'Олово',
+                nameEn: 'Tin',
+                category: 'basic-metal',
+                relativeAtomicMass: 118.71,
+                stableOxidationState: [+2, +4],
+                atomicRadius: 158,
+                period: 5,
+                group: 14
+            },
+            {
+                number: 51,
+                symbol: 'Sb',
+                nameRu: 'Сурьма',
+                nameEn: 'Antimony',
+                category: 'metalloid',
+                relativeAtomicMass: 121.76,
+                stableOxidationState: [+3, +5],
+                atomicRadius: 141,
+                period: 5,
+                group: 15
+            },
+            {
+                number: 52,
+                symbol: 'Te',
+                nameRu: 'Теллур',
+                nameEn: 'Tellurium',
+                category: 'metalloid',
+                relativeAtomicMass: 127.60,
+                stableOxidationState: [-2, +4, +6],
+                atomicRadius: 143,
+                period: 5,
+                group: 16
+            },
+            {
+                number: 53,
+                symbol: 'I',
+                nameRu: 'Иод',
+                nameEn: 'Iodine',
+                category: 'halogen',
+                relativeAtomicMass: 126.90,
+                stableOxidationState: [-1, +1, +5, +7],
+                atomicRadius: 133,
+                period: 5,
+                group: 17
+            },
+            {
+                number: 54,
+                symbol: 'Xe',
+                nameRu: 'Ксенон',
+                nameEn: 'Xenon',
+                category: 'noble-gas',
+                relativeAtomicMass: 131.29,
+                stableOxidationState: 0,
+                atomicRadius: 108,
+                period: 5,
+                group: 18
+            },
+            {
+                number: 55,
+                symbol: 'Cs',
+                nameRu: 'Цезий',
+                nameEn: 'Caesium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 132.91,
+                stableOxidationState: +1,
+                atomicRadius: 298,
+                period: 6,
+                group: 1
+            },
+            {
+                number: 56,
+                symbol: 'Ba',
+                nameRu: 'Барий',
+                nameEn: 'Barium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 137.33,
+                stableOxidationState: +2,
+                atomicRadius: 253,
+                period: 6,
+                group: 2
+            },
+            // Лантаноиды (пример)
+            {
+                number: 57,
+                symbol: 'La',
+                nameRu: 'Лантан',
+                nameEn: 'Lanthanum',
+                category: 'lanthanide',
+                relativeAtomicMass: 138.91,
+                stableOxidationState: +3,
+                atomicRadius: 187,
+                period: 6,
+                group: 3
+            },
+            {
+                number: 58,
+                symbol: 'Ce',
+                nameRu: 'Церий',
+                nameEn: 'Cerium',
+                category: 'lanthanide',
+                relativeAtomicMass: 140.12,
+                stableOxidationState: [+3, +4],
+                atomicRadius: 181,
+                period: 6,
+                group: null
+            },
+            // Лантаноиды (продолжение)
+            {
+                number: 59,
+                symbol: 'Pr',
+                nameRu: 'Празеодим',
+                nameEn: 'Praseodymium',
+                category: 'lanthanide',
+                relativeAtomicMass: 140.91,
+                stableOxidationState: +3,
+                atomicRadius: 182,
+                period: 6,
+                group: null
+            },
+            {
+                number: 60,
+                symbol: 'Nd',
+                nameRu: 'Неодим',
+                nameEn: 'Neodymium',
+                category: 'lanthanide',
+                relativeAtomicMass: 144.24,
+                stableOxidationState: +3,
+                atomicRadius: 181,
+                period: 6,
+                group: null
+            },
+            {
+                number: 61,
+                symbol: 'Pm',
+                nameRu: 'Прометий',
+                nameEn: 'Promethium',
+                category: 'lanthanide',
+                relativeAtomicMass: 145,
+                stableOxidationState: +3,
+                atomicRadius: 183,
+                period: 6,
+                group: null
+            },
+            {
+                number: 62,
+                symbol: 'Sm',
+                nameRu: 'Самарий',
+                nameEn: 'Samarium',
+                category: 'lanthanide',
+                relativeAtomicMass: 150.36,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 180,
+                period: 6,
+                group: null
+            },
+            {
+                number: 63,
+                symbol: 'Eu',
+                nameRu: 'Европий',
+                nameEn: 'Europium',
+                category: 'lanthanide',
+                relativeAtomicMass: 151.96,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 199,
+                period: 6,
+                group: null
+            },
+            {
+                number: 64,
+                symbol: 'Gd',
+                nameRu: 'Гадолиний',
+                nameEn: 'Gadolinium',
+                category: 'lanthanide',
+                relativeAtomicMass: 157.25,
+                stableOxidationState: +3,
+                atomicRadius: 179,
+                period: 6,
+                group: null
+            },
+            {
+                number: 65,
+                symbol: 'Tb',
+                nameRu: 'Тербий',
+                nameEn: 'Terbium',
+                category: 'lanthanide',
+                relativeAtomicMass: 158.93,
+                stableOxidationState: [+3, +4],
+                atomicRadius: 176,
+                period: 6,
+                group: null
+            },
+            {
+                number: 66,
+                symbol: 'Dy',
+                nameRu: 'Диспрозий',
+                nameEn: 'Dysprosium',
+                category: 'lanthanide',
+                relativeAtomicMass: 162.50,
+                stableOxidationState: +3,
+                atomicRadius: 175,
+                period: 6,
+                group: null
+            },
+            {
+                number: 67,
+                symbol: 'Ho',
+                nameRu: 'Гольмий',
+                nameEn: 'Holmium',
+                category: 'lanthanide',
+                relativeAtomicMass: 164.93,
+                stableOxidationState: +3,
+                atomicRadius: 174,
+                period: 6,
+                group: null
+            },
+            {
+                number: 68,
+                symbol: 'Er',
+                nameRu: 'Эрбий',
+                nameEn: 'Erbium',
+                category: 'lanthanide',
+                relativeAtomicMass: 167.26,
+                stableOxidationState: +3,
+                atomicRadius: 173,
+                period: 6,
+                group: null
+            },
+            {
+                number: 69,
+                symbol: 'Tm',
+                nameRu: 'Тулий',
+                nameEn: 'Thulium',
+                category: 'lanthanide',
+                relativeAtomicMass: 168.93,
+                stableOxidationState: +3,
+                atomicRadius: 172,
+                period: 6,
+                group: null
+            },
+            {
+                number: 70,
+                symbol: 'Yb',
+                nameRu: 'Иттербий',
+                nameEn: 'Ytterbium',
+                category: 'lanthanide',
+                relativeAtomicMass: 173.05,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 194,
+                period: 6,
+                group: null
+            },
+            {
+                number: 71,
+                symbol: 'Lu',
+                nameRu: 'Лютеций',
+                nameEn: 'Lutetium',
+                category: 'lanthanide',
+                relativeAtomicMass: 174.97,
+                stableOxidationState: +3,
+                atomicRadius: 172,
+                period: 6,
+                group: 3
+            },
+
+            // Актиноиды
+            {
+                number: 89,
+                symbol: 'Ac',
+                nameRu: 'Актиний',
+                nameEn: 'Actinium',
+                category: 'actinide',
+                relativeAtomicMass: 227,
+                stableOxidationState: +3,
+                atomicRadius: 188,
+                period: 7,
+                group: 3
+            },
+            {
+                number: 90,
+                symbol: 'Th',
+                nameRu: 'Торий',
+                nameEn: 'Thorium',
+                category: 'actinide',
+                relativeAtomicMass: 232.04,
+                stableOxidationState: +4,
+                atomicRadius: 179,
+                period: 7,
+                group: null
+            },
+            {
+                number: 91,
+                symbol: 'Pa',
+                nameRu: 'Протактиний',
+                nameEn: 'Protactinium',
+                category: 'actinide',
+                relativeAtomicMass: 231.04,
+                stableOxidationState: +5,
+                atomicRadius: 163,
+                period: 7,
+                group: null
+            },
+            {
+                number: 92,
+                symbol: 'U',
+                nameRu: 'Уран',
+                nameEn: 'Uranium',
+                category: 'actinide',
+                relativeAtomicMass: 238.03,
+                stableOxidationState: [+3, +4, +6],
+                atomicRadius: 156,
+                period: 7,
+                group: null
+            },
+            {
+                number: 93,
+                symbol: 'Np',
+                nameRu: 'Нептуний',
+                nameEn: 'Neptunium',
+                category: 'actinide',
+                relativeAtomicMass: 237,
+                stableOxidationState: [+3, +4, +5, +6],
+                atomicRadius: 155,
+                period: 7,
+                group: null
+            },
+            {
+                number: 94,
+                symbol: 'Pu',
+                nameRu: 'Плутоний',
+                nameEn: 'Plutonium',
+                category: 'actinide',
+                relativeAtomicMass: 244,
+                stableOxidationState: [+3, +4, +5, +6],
+                atomicRadius: 159,
+                period: 7,
+                group: null
+            },
+            {
+                number: 95,
+                symbol: 'Am',
+                nameRu: 'Америций',
+                nameEn: 'Americium',
+                category: 'actinide',
+                relativeAtomicMass: 243,
+                stableOxidationState: [+2, +3, +4, +5, +6],
+                atomicRadius: 173,
+                period: 7,
+                group: null
+            },
+            {
+                number: 96,
+                symbol: 'Cm',
+                nameRu: 'Кюрий',
+                nameEn: 'Curium',
+                category: 'actinide',
+                relativeAtomicMass: 247,
+                stableOxidationState: +3,
+                atomicRadius: 174,
+                period: 7,
+                group: null
+            },
+            {
+                number: 97,
+                symbol: 'Bk',
+                nameRu: 'Берклий',
+                nameEn: 'Berkelium',
+                category: 'actinide',
+                relativeAtomicMass: 247,
+                stableOxidationState: [+3, +4],
+                atomicRadius: 170,
+                period: 7,
+                group: null
+            },
+            {
+                number: 98,
+                symbol: 'Cf',
+                nameRu: 'Калифорний',
+                nameEn: 'Californium',
+                category: 'actinide',
+                relativeAtomicMass: 251,
+                stableOxidationState: +3,
+                atomicRadius: 186,
+                period: 7,
+                group: null
+            },
+            {
+                number: 99,
+                symbol: 'Es',
+                nameRu: 'Эйнштейний',
+                nameEn: 'Einsteinium',
+                category: 'actinide',
+                relativeAtomicMass: 252,
+                stableOxidationState: +3,
+                atomicRadius: 186,
+                period: 7,
+                group: null
+            },
+            {
+                number: 100,
+                symbol: 'Fm',
+                nameRu: 'Фермий',
+                nameEn: 'Fermium',
+                category: 'actinide',
+                relativeAtomicMass: 257,
+                stableOxidationState: +3,
+                atomicRadius: 175,
+                period: 7,
+                group: null
+            },
+            {
+                number: 101,
+                symbol: 'Md',
+                nameRu: 'Менделевий',
+                nameEn: 'Mendelevium',
+                category: 'actinide',
+                relativeAtomicMass: 258,
+                stableOxidationState: [+2, +3],
+                atomicRadius: 173,
+                period: 7,
+                group: null
+            },
+            {
+                number: 102,
+                symbol: 'No',
+                nameRu: 'Нобелий',
+                nameEn: 'Nobelium',
+                category: 'actinide',
+                relativeAtomicMass: 259,
+                stableOxidationState: +2,
+                atomicRadius: 176,
+                period: 7,
+                group: null
+            },
+            {
+                number: 103,
+                symbol: 'Lr',
+                nameRu: 'Лоуренсий',
+                nameEn: 'Lawrencium',
+                category: 'actinide',
+                relativeAtomicMass: 266,
+                stableOxidationState: +3,
+                atomicRadius: 161,
+                period: 7,
+                group: 3
+            },
+
+            // Период 6 (после лантаноидов)
+            {
+                number: 72,
+                symbol: 'Hf',
+                nameRu: 'Гафний',
+                nameEn: 'Hafnium',
+                category: 'transition-metal',
+                relativeAtomicMass: 178.49,
+                stableOxidationState: +4,
+                atomicRadius: 159,
+                period: 6,
+                group: 4
+            },
+            {
+                number: 73,
+                symbol: 'Ta',
+                nameRu: 'Тантал',
+                nameEn: 'Tantalum',
+                category: 'transition-metal',
+                relativeAtomicMass: 180.95,
+                stableOxidationState: +5,
+                atomicRadius: 146,
+                period: 6,
+                group: 5
+            },
+            {
+                number: 74,
+                symbol: 'W',
+                nameRu: 'Вольфрам',
+                nameEn: 'Tungsten',
+                category: 'transition-metal',
+                relativeAtomicMass: 183.84,
+                stableOxidationState: [+4, +6],
+                atomicRadius: 139,
+                period: 6,
+                group: 6
+            },
+            {
+                number: 75,
+                symbol: 'Re',
+                nameRu: 'Рений',
+                nameEn: 'Rhenium',
+                category: 'transition-metal',
+                relativeAtomicMass: 186.21,
+                stableOxidationState: [+4, +6, +7],
+                atomicRadius: 137,
+                period: 6,
+                group: 7
+            },
+            {
+                number: 76,
+                symbol: 'Os',
+                nameRu: 'Осмий',
+                nameEn: 'Osmium',
+                category: 'transition-metal',
+                relativeAtomicMass: 190.23,
+                stableOxidationState: [+2, +3, +4, +6, +8],
+                atomicRadius: 135,
+                period: 6,
+                group: 8
+            },
+            {
+                number: 77,
+                symbol: 'Ir',
+                nameRu: 'Иридий',
+                nameEn: 'Iridium',
+                category: 'transition-metal',
+                relativeAtomicMass: 192.22,
+                stableOxidationState: [+3, +4],
+                atomicRadius: 136,
+                period: 6,
+                group: 9
+            },
+            {
+                number: 78,
+                symbol: 'Pt',
+                nameRu: 'Платина',
+                nameEn: 'Platinum',
+                category: 'transition-metal',
+                relativeAtomicMass: 195.08,
+                stableOxidationState: [+2, +4],
+                atomicRadius: 139,
+                period: 6,
+                group: 10
+            },
+            {
+                number: 79,
+                symbol: 'Au',
+                nameRu: 'Золото',
+                nameEn: 'Gold',
+                category: 'transition-metal',
+                relativeAtomicMass: 196.97,
+                stableOxidationState: [+1, +3],
+                atomicRadius: 144,
+                period: 6,
+                group: 11
+            },
+            {
+                number: 80,
+                symbol: 'Hg',
+                nameRu: 'Ртуть',
+                nameEn: 'Mercury',
+                category: 'transition-metal',
+                relativeAtomicMass: 200.59,
+                stableOxidationState: [+1, +2],
+                atomicRadius: 151,
+                period: 6,
+                group: 12
+            },
+            {
+                number: 81,
+                symbol: 'Tl',
+                nameRu: 'Таллий',
+                nameEn: 'Thallium',
+                category: 'basic-metal',
+                relativeAtomicMass: 204.38,
+                stableOxidationState: [+1, +3],
+                atomicRadius: 170,
+                period: 6,
+                group: 13
+            },
+            {
+                number: 82,
+                symbol: 'Pb',
+                nameRu: 'Свинец',
+                nameEn: 'Lead',
+                category: 'basic-metal',
+                relativeAtomicMass: 207.2,
+                stableOxidationState: [+2, +4],
+                atomicRadius: 175,
+                period: 6,
+                group: 14
+            },
+            {
+                number: 83,
+                symbol: 'Bi',
+                nameRu: 'Висмут',
+                nameEn: 'Bismuth',
+                category: 'basic-metal',
+                relativeAtomicMass: 208.98,
+                stableOxidationState: +3,
+                atomicRadius: 170,
+                period: 6,
+                group: 15
+            },
+            {
+                number: 84,
+                symbol: 'Po',
+                nameRu: 'Полоний',
+                nameEn: 'Polonium',
+                category: 'metalloid',
+                relativeAtomicMass: 209,
+                stableOxidationState: [-2, +2, +4],
+                atomicRadius: 176,
+                period: 6,
+                group: 16
+            },
+            {
+                number: 85,
+                symbol: 'At',
+                nameRu: 'Астат',
+                nameEn: 'Astatine',
+                category: 'halogen',
+                relativeAtomicMass: 210,
+                stableOxidationState: [-1, +1, +3, +5],
+                atomicRadius: 127,
+                period: 6,
+                group: 17
+            },
+            {
+                number: 86,
+                symbol: 'Rn',
+                nameRu: 'Радон',
+                nameEn: 'Radon',
+                category: 'noble-gas',
+                relativeAtomicMass: 222,
+                stableOxidationState: 0,
+                atomicRadius: 120,
+                period: 6,
+                group: 18
+            },
+            {
+                number: 87,
+                symbol: 'Fr',
+                nameRu: 'Франций',
+                nameEn: 'Francium',
+                category: 'alkali-metal',
+                relativeAtomicMass: 223,
+                stableOxidationState: +1,
+                atomicRadius: 300,
+                period: 7,
+                group: 1
+            },
+            {
+                number: 88,
+                symbol: 'Ra',
+                nameRu: 'Радий',
+                nameEn: 'Radium',
+                category: 'alkaline-earth',
+                relativeAtomicMass: 226,
+                stableOxidationState: +2,
+                atomicRadius: 215,
+                period: 7,
+                group: 2
+            },
+            // Период 7 (после актиноидов)
+            {
+                number: 104,
+                symbol: 'Rf',
+                nameRu: 'Резерфордий',
+                nameEn: 'Rutherfordium',
+                category: 'transition-metal',
+                relativeAtomicMass: 267,
+                stableOxidationState: +4,
+                atomicRadius: 157,
+                period: 7,
+                group: 4
+            },
+            {
+                number: 105,
+                symbol: 'Db',
+                nameRu: 'Дубний',
+                nameEn: 'Dubnium',
+                category: 'transition-metal',
+                relativeAtomicMass: 268,
+                stableOxidationState: +5,
+                atomicRadius: 149,
+                period: 7,
+                group: 5
+            },
+            {
+                number: 106,
+                symbol: 'Sg',
+                nameRu: 'Сиборгий',
+                nameEn: 'Seaborgium',
+                category: 'transition-metal',
+                relativeAtomicMass: 269,
+                stableOxidationState: +6,
+                atomicRadius: 143,
+                period: 7,
+                group: 6
+            },
+            {
+                number: 107,
+                symbol: 'Bh',
+                nameRu: 'Борий',
+                nameEn: 'Bohrium',
+                category: 'transition-metal',
+                relativeAtomicMass: 270,
+                stableOxidationState: +7,
+                atomicRadius: 141,
+                period: 7,
+                group: 7
+            },
+            {
+                number: 108,
+                symbol: 'Hs',
+                nameRu: 'Хассий',
+                nameEn: 'Hassium',
+                category: 'transition-metal',
+                relativeAtomicMass: 269,
+                stableOxidationState: +8,
+                atomicRadius: 134,
+                period: 7,
+                group: 8
+            },
+            {
+                number: 109,
+                symbol: 'Mt',
+                nameRu: 'Мейтнерий',
+                nameEn: 'Meitnerium',
+                category: 'transition-metal',
+                relativeAtomicMass: 278,
+                stableOxidationState: null,
+                atomicRadius: null,
+                period: 7,
+                group: 9
+            },
+            {
+                number: 110,
+                symbol: 'Ds',
+                nameRu: 'Дармштадтий',
+                nameEn: 'Darmstadtium',
+                category: 'transition-metal',
+                relativeAtomicMass: 281,
+                stableOxidationState: null,
+                atomicRadius: null,
+                period: 7,
+                group: 10
+            },
+            {
+                number: 111,
+                symbol: 'Rg',
+                nameRu: 'Рентгений',
+                nameEn: 'Roentgenium',
+                category: 'transition-metal',
+                relativeAtomicMass: 282,
+                stableOxidationState: null,
+                atomicRadius: null,
+                period: 7,
+                group: 11
+            },
+            {
+                number: 112,
+                symbol: 'Cn',
+                nameRu: 'Коперниций',
+                nameEn: 'Copernicium',
+                category: 'transition-metal',
+                relativeAtomicMass: 285,
+                stableOxidationState: +2,
+                atomicRadius: null,
+                period: 7,
+                group: 12
+            },
+            {
+                number: 113,
+                symbol: 'Nh',
+                nameRu: 'Нихоний',
+                nameEn: 'Nihonium',
+                category: 'basic-metal',
+                relativeAtomicMass: 286,
+                stableOxidationState: [+1, +3],
+                atomicRadius: null,
+                period: 7,
+                group: 13
+            },
+            {
+                number: 114,
+                symbol: 'Fl',
+                nameRu: 'Флеровий',
+                nameEn: 'Flerovium',
+                category: 'basic-metal',
+                relativeAtomicMass: 289,
+                stableOxidationState: [+2, +4],
+                atomicRadius: null,
+                period: 7,
+                group: 14
+            },
+            {
+                number: 115,
+                symbol: 'Mc',
+                nameRu: 'Московий',
+                nameEn: 'Moscovium',
+                category: 'basic-metal',
+                relativeAtomicMass: 290,
+                stableOxidationState: [+1, +3],
+                atomicRadius: null,
+                period: 7,
+                group: 15
+            },
+            {
+                number: 116,
+                symbol: 'Lv',
+                nameRu: 'Ливерморий',
+                nameEn: 'Livermorium',
+                category: 'basic-metal',
+                relativeAtomicMass: 293,
+                stableOxidationState: [+2, +4],
+                atomicRadius: null,
+                period: 7,
+                group: 16
+            },
+            {
+                number: 117,
+                symbol: 'Ts',
+                nameRu: 'Теннессин',
+                nameEn: 'Tennessine',
+                category: 'halogen',
+                relativeAtomicMass: 294,
+                stableOxidationState: [-1, +1, +3, +5],
+                atomicRadius: null,
+                period: 7,
+                group: 17
+            },
+            {
+                number: 118,
+                symbol: 'Og',
+                nameRu: 'Оганесон',
+                nameEn: 'Oganesson',
+                category: 'noble-gas',
+                relativeAtomicMass: 294,
+                stableOxidationState: 0,
+                atomicRadius: null,
+                period: 7,
+                group: 18
+            }
+        ];
+
+        const table = document.getElementById('periodic-table');
+
+        //table.style.background = '#e5ddd5';
+        //table.style.backgroundImage = 'linear-gradient(#e5ddd5, #d5dbd8)';
+
+        for (let period = 1; period <= 9; period++) {
+            for (let group = 1; group <= 18; group++) {
+                // Добавление надписей для лантаноидов/актиноидов
+                if (period === 8 && group === 3) {
+                    const labelCell = document.createElement('div');
+                    labelCell.className = 'lanthanide-label';
+                    labelCell.textContent = 'Лантаноиды';
+                    table.appendChild(labelCell);
+                }
+
+                if (period === 9 && group === 3) {
+                    const labelCell = document.createElement('div');
+                    labelCell.className = 'actinide-label';
+                    labelCell.textContent = 'Актиноиды';
+                    table.appendChild(labelCell);
+                }
+
+                const cell = document.createElement('div');
+                cell.className = 'empty';
+
+                // Обработка лантаноидов (период 8) и актиноидов (период 9)
+                if (period === 8 || period === 9) {
+                    const startNumber = period === 8 ? 58 : 90; // 57-71 (лантаноиды) или 89-103 (актиноиды)
+                    const endNumber = period === 8 ? 71 : 103;
+                    const elementsInRow = elements.filter(el =>
+                        el.number >= startNumber && el.number <= endNumber
+                    );
+
+                    // Распределяем элементы по группам 4-17 (визуальное смещение)
+                    if (group >= 3 && group <= 17) {
+                        const index = group - 3; // преобразуем группу в индекс (0-13)
+                        if (index < elementsInRow.length) {
+                            const element = elementsInRow[index];
+                            cell.className = `element ${element.category}`;
+                            cell.innerHTML = `
+                        <div class="number">${element.number}</div>
+                        <div class="symbol">${element.symbol}</div>
+                        <div class="nameRu">${element.nameRu}</div>
+                        <div class="nameEn">${element.nameEn}</div>
+                    `;
+                        } else {
+                            continue; // пропускаем пустые ячейки
+                        }
+                    }
+                } else {
+                    // Обычные элементы (периоды 1-7)
+                    const element = elements.find(el => el.period === period && el.group === group);
+                    if (element) {
+                        cell.className = `element ${element.category}`;
+                        cell.innerHTML = `
+                    <div class="number">${element.number}</div>
+                    <div class="symbol">${element.symbol}</div>
+                    <div class="nameRu">${element.nameRu}</div>
+                    <div class="nameEn">${element.nameEn}</div>
+                `;
+                    }
+                }
+
+                table.appendChild(cell);
+            }
+        }
+    </script>
+</body>
+</html>

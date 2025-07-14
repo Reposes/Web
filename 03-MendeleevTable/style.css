@@ -1,0 +1,198 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    /*background-color: #e7edbe;*/ /*dark*/
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 70px);
+    grid-template-rows: repeat(7, 75px);
+    gap: 5px;
+    margin: 20px auto;
+    max-width: calc(18 * 75px);
+    /*background-image: linear-gradient(#ffffff, #ffffff);*/
+    background-color: #ffffff;
+    /*padding: 10px;*/
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/*.periodic-table {
+            background-color: #e5ddd5;*/ /*Цвет фона WhatsApp */
+/*background-image: linear-gradient(#e5ddd5, #d5dbd8);*/ /*Градиент для глубины */
+/*padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }*/
+.element {
+    /*--element-color: #ffffff;*/
+    border: 1px solid transparent; /*Прозрачная граница по умолчанию*/ /*#ccc;*/
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+    /*position: relative;*/
+    background-color: rgba(0,0,0,0.7);
+    /*--webkitt-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;*/
+}
+
+    /* Эффект при наведении */
+    .element:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 5px #fff /*rgba (255, 255, 255, 0.8)*/, 0 0 10px var(--element-color);
+        z-index: 10;
+        background-color: #2c2727;
+        border-color: white; /*Белый контур при наведении*/ /*#fff;*/
+        opacity: 0.9;
+    }
+
+        .element:hover .number,
+        .element:hover .symbol {
+            text-shadow: 0 0 5px #fff, 0 0 15px var(--element-color);
+            /* color: transparent; */ /* Делаем основной текст прозрачным */
+            -webkit-text-stroke: 2px white; /* контур букв (поддержка браузерами) */
+            paint-order: stroke fill; /*Контроль порядка отрисовки */ /* text-stroke: 1px white;*/ /*устаревшая версия (не рекомендуется)*/
+            /*opacity: 0.8;*/
+        }
+
+        .element:hover .nameRu {
+            text-shadow: 0 0 3px #fff /*rgba (255, 255, 255, 0.8);*/, 0 0 15px var(--element-color);
+            -webkit-text-stroke: 1px white; /* контур букв (поддержка браузерами) */
+            /* color: #fff;*/
+        }
+
+/* Цветная подсветка для разных групп */
+.alkali-metal:hover {
+    box-shadow: 0 0 15px rgba(255, 157, 157, 0.8);
+}
+
+.noble-gas:hover {
+    box-shadow: 0 0 15px rgba(192, 255, 255, 0.8);
+}
+/* ... аналогично для других категорий ... */
+
+.number {
+    font-size: 10px;
+    align-self: flex-start;
+}
+
+.symbol {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 3px 0;
+}
+
+.nameRu {
+    font-size: 10px;
+}
+
+.nameEn {
+    font-size: 8px;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px auto;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border: 1px solid #999;
+}
+
+/* категории элементов с разными цветами свечения */
+.alkali-metal {
+    background-color: #FF9D9D;
+    --element-color: #ff6b6b;
+}
+
+.alkaline-earth {
+    background-color: #FFDEAD;
+    --element-color: #ffb347;
+}
+
+.transition-metal {
+    background-color: #9abacc; /*#FFC0CB;*/
+    --element-color: #9abacc; /* #ff9ff3;*/
+}
+
+.basic-metal {
+    background-color: #CCCCCC;
+    --element-color: #c8d6e5;
+}
+
+.metalloid {
+    background-color: #99CC99;
+    --element-color: #1dd1a1;
+}
+
+.nonmetal {
+    background-color: #A0D6FF;
+    --element-color: #48dbfb;
+}
+
+.halogen {
+    background-color: #FFFF99;
+    --element-color: #feca57;
+}
+
+.noble-gas {
+    background-color: #C0FFFF;
+    --element-color: #00d2d3;
+}
+
+.lanthanide {
+    background-color: #FFB5C5;
+    --element-color: #ff9ff3;
+}
+
+.actinide {
+    background-color: #cee58b; /*#FF99CC;*/
+    --element-color: #cee58b; /*#ff6b6b;*/
+}
+
+.lanthanide-label {
+    grid-column: 2 / span 2; /* Занимает 3 колонки слева */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    /*color: #555;*/
+    background-color: #FFB5C5; /*var(--element-color);*/ /*inherit;*/ /*rgba(255, 255, 255, 0.7);*/
+    border-radius: 4px;
+    margin: 2px;
+    height: 30px;
+    align-self: center;
+}
+
+.actinide-label {
+    grid-column: 2 / span 2; /* Занимает 3 колонки слева */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    /*color: #555;*/
+    background-color: #cee58b; /*var(--element-color);*/ /*inherit; */ /*rgba(255, 255, 255, 0.7);*/
+    border-radius: 4px;
+    margin: 2px;
+    height: 30px;
+    align-self: center;
+}
+/* Пустые ячейки для выравнивания */
+.empty {
+    visibility: hidden;
+}
