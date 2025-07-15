@@ -1,11 +1,18 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 body {
     /*font-family: Arial, Helvetica, sans-serif;*/
-    font-family: Roboto Condensed;
+    font-family: Roboto Condensed, Arial, Arial, Helvetica, sans-serif;
     margin: 20px;
     /*background-color: #e7edbe;*/ /*dark*/
+    -webkit-font-smoothing: antialiased; /* Для Mac/Safari */
+    -moz-osx-font-smoothing: grayscale; /* Для Firefox */
+    text-rendering: optimizeLegibility; /* Лучшее сглаживание */
 }
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .periodic-table {
     display: grid;
     grid-template-columns: repeat(18, 70px);
@@ -67,18 +74,8 @@ body {
             /* color: #fff;*/
         }
 
-/* Цветная подсветка для разных групп */
-.alkali-metal:hover {
-    box-shadow: 0 0 15px rgba(255, 157, 157, 0.8);
-}
-
-.noble-gas:hover {
-    box-shadow: 0 0 15px rgba(192, 255, 255, 0.8);
-}
-/* ... аналогично для других категорий ... */
-
 .number {
-    font-size: 10px;
+    font-size: 11px;
     align-self: flex-start;
 }
 
@@ -89,11 +86,11 @@ body {
 }
 
 .nameRu {
-    font-size: 10px;
+    font-size: 11px;
 }
 
 .nameEn {
-    font-size: 8px;
+    font-size: 9px;
 }
 
 .legend {
