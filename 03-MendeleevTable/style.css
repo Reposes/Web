@@ -76,7 +76,7 @@
 /* ... аналогично для других категорий ... */
 
 .number {
-    font-size: 10px;
+    font-size: 5px;
     align-self: flex-start;
 }
 
@@ -87,11 +87,11 @@
 }
 
 .nameRu {
-    font-size: 10px;
+    font-size: 5px;
 }
 
 .nameEn {
-    font-size: 8px;
+    font-size: 4px;
 }
 
 .legend {
