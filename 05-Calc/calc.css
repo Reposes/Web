@@ -1,8 +1,14 @@
-﻿body
+﻿﻿ /*
+	1. Frame-layout;
+	2. Table-layout;
+	3. Flex-layout;
+	4. Framework-layout: W3C-framework, Bootstrap;
+*/
+body 
 {
-    background-image:url('img/bliss.jpg');
+    background-image: url('img/bliss.jpg');
     background-size: cover;
-    font-family:Tahoma;
+    font-family: Tahoma;
 }
 #main-window
 {
@@ -12,13 +18,13 @@
 }
 #title-bar
 {
+    background-color:blue;
     width:400px;
     height:32px;
-    background-color:blue;
     border-top-left-radius:8px;
     border-top-right-radius:8px;
     color:white;
-    text-shadow:1px 1px 0px black;
+    text-shadow:1px 1px 1px black;
 
 }
 #title-bar, #window-icon-and-title 
@@ -35,13 +41,14 @@
     }
 #window-control-buttons
 {
-    margin:4px 8px;
+    margin: 4px 6px;
+
 }
-#window-control-buttons > input[type=button]
-{
-    width:24px;
-    height:24px;
-}
+    #window-control-buttons > input[type=button]
+    {
+        width:24px;
+        height:24px;
+    }
 #client-rect {
     width: 400px;
     height: 268px;
