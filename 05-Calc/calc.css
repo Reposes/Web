@@ -20,11 +20,22 @@ body
 {
     background-color:blue;
     width:400px;
-    height:32px;
+    height:35px;
     border-top-left-radius:8px;
     border-top-right-radius:8px;
     color:white;
     text-shadow:1px 1px 1px black;
+    background-image: linear-gradient(
+        #77CCFF, 
+        #0469EC, 
+        #0469EC, 
+        #0469EC, 
+        #0569FF,
+        #0569FF,
+        #0569FF
+        );
+    box-shadow: inset 0px -1px 3px 1px #1739a9;
+
 
 }
 #title-bar, #window-icon-and-title 
@@ -44,11 +55,59 @@ body
     margin: 4px 6px;
 
 }
-    #window-control-buttons > input[type=button]
-    {
-        width:24px;
-        height:24px;
-    }
+   /* #window-control-buttons > input[type=button]*/
+.control-button {
+    width: 24px;
+    height: 24px;
+    border: solid 1px;
+    border-radius: 5px;
+    /*text-align: center;*/
+    padding: 0px 0px 3px 0px;
+    /*font: 16px/1;*/
+    font-size: 17px;
+    font-weight: 700;
+    background-image: linear-gradient(to bottom right, #55A1FF, #0025B5);
+    box-shadow: inset -3px 1px 3px 0px #77A1F5, inset -3px -1px 3px 0px #0025B5;
+    color: white;
+}
+   .control-button.miximize{
+       /*font-size: 16px;*/
+       /* transform: rotateY(180deg);*/
+       
+       /*padding: -3px 0px 3px 0px;*/
+       
+   }
+
+   .control-button:hover{
+       background-image: linear-gradient(to bottom right, #75C1FF, #2045D5);
+       box-shadow: inset 0px 0px 3px 3px #355ee4;
+   }
+   .control-button:active{
+       background-image:linear-gradient(to bottom right, #55A1CF, #0025B5);
+       box-shadow: inset 0px 0px 3px 3px #5781F5;
+   }
+   #close-button{
+       background-image: linear-gradient(to bottom left, #C97475, #FF3010);
+       box-shadow: inset -3px 1px 3px 0px #C49A9B;
+   }
+   #close-button:hover
+   {
+       background-image:linear-gradient(to bottom right, #D98855, #FF3020);
+       box-shadow: inset 0px 0px 3px 3px #C49A9B;
+   }
+   #close-button:active
+   {
+       background-image:linear-gradient(to bottom right, #D95455, #FF3020);
+       box-shadow: inset 0px 0px 3px 3px #B48A8B;
+   }
+.control-button:disabled {
+    background-image: linear-gradient(to bottom right, #2251AA, #0025B5);
+    box-shadow: inset -3px 1px 3px 0px #5581B5, inset -3px -1px 3px 0px #0025B5;
+    color: #8ea6bd;
+    border: 1px solid #9fc5dc ;
+    height: 25px;
+}
+
 #client-rect {
     width: 400px;
     height: 268px;
