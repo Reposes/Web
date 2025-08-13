@@ -31,10 +31,10 @@
                 <div class="buttons">
                     <div class="memory-buttons">
                         <div id="square"></div>
-                        <button>MC</button>
-                        <button>MR</button>
-                        <button>MS</button>
-                        <button>M+</button>
+                        <button onclick="memoryClear()">MC</button>
+                        <button onclick="memoryRecall()">MR</button>
+                        <button onclick="memoryStore()">MS</button>
+                        <button onclick="memoryAdd()">M+</button>
                     </div>
                     <div class="main-block"></div>
                     <div class="wide-buttons">
@@ -61,17 +61,17 @@
 
                         </div>
                         <div class="operational-buttons">
-                            <button>/</button>
-                            <button>sqrt</button>
+                            <button onclick="chooseOperation('/')">/</button>
+                            <button onclick="square()">sqrt</button>
 
-                            <button>*</button>
-                            <button>%</button>
+                            <button onclick="chooseOperation('*')">*</button>
+                            <button onclick="percent()">%</button>
 
-                            <button>-</button>
-                            <button>1/x</button>
+                            <button onclick="chooseOperation('-')">-</button>
+                            <button onclick="inverse()">1/x</button>
 
-                            <button>+</button>
-                            <button>=</button>
+                            <button onclick="chooseOperation('+')">+</button>
+                            <button onclick="compute()">=</button>
                         </div>
                     </div>
                     </div>
@@ -83,92 +83,6 @@
         <div id="border-bottom"></div>
     </div>
 
-    <script>
-        let currentInput = '0';
-        let previousInput = '';
-        let opertion = null;
-        let memory = 0;
-
-        const display = document.getElementById('display');
-
-        function updateDisplay() {
-            display.value =currentInput;
-        }
-
-        function appendNumber(number) {
-            if (currentInput === '0' || currentInput === 'Error') {
-                currentInput = number;
-            } else {
-                currentInput += number;
-            }
-            updateDisplay();
-        }
-
-        function appendDot() {
-            if (!currentInput.includes('.')) {
-                currentInput += '.';
-            }
-            updateDisplay();
-        }
-
-        function chooseOperation(operator) {
-            if (currentInput === 'Error') return;
-            if (previousInput !== '') {
-                compute();
-            }
-            operation = operator;
-            previousInput = currentInput;
-            currentInput = '0';
-        }
-
-        function compute() {
-            if (operation === null || previousInput === '' || currentInput === '') return;
-            let result;
-            const prev = parseFloat(previousInput);
-            const curr = parseFloat(currentInput);
-            switch (operation) {
-                case '+': result = prev + curr; break;
-                case '-': result = prev - curr; break;
-                case '*': result = prev * curr; break;
-                case '/+':
-                    if (curr === 0) { result = 'Error'; break }
-                    result = prev / curr;
-                    break;
-            }
-            currentInput = String(result);
-            opertion = null;
-            previousInput = '';
-            updateDisplay();
-        }
-
-        function clear() {
-            currentInput = '0';
-            updateDisplay();
-        }
-
-        function clearAll() {
-            currentInput = '0';
-            previousInput = '';
-            opertion = null;
-            updateDisplay();
-        }
-
-        function backspace() {
-            if (currentInput.length > 1) {
-                currentInput = currentInput.slice(0, -1);
-            } else {
-                currentInput = '0';
-            }
-            updateDisplay();
-        }
-
-        function minusSign() {
-            if (currentInput !== '0') {
-                currentInput = currentInput.startsWith('-') ? currentInput.slice(1) : '-' + currentInput;
-            } 
-            updateDisplay();
-        }
-
-    </script>
+    <script src="script.js"></script> 
 </body>
 </html>
