@@ -185,11 +185,17 @@ body
         background-color: lightgray;
         box-shadow: inset 0px 0px 2px 1px #FFAA00;
     }
+
 .buttons button:active
 {
     box-shadow: inset 0px 0px 2px 1px grey;
 }
 
+button.active {
+    background-color: #c0d8ff;
+    transform: translateY(2px);
+    box-shadow: inset 0px 2px 4px rgba(0,0,0,0.3);
+}
 .memory-buttons
 {
     display: grid;

@@ -1,4 +1,4 @@
-// JavaScript source code
+﻿// JavaScript source code
 
     let currentInput = '0';
     let previousInput = '';
@@ -111,7 +111,7 @@
     updateDisplay();
         }
 
-    // ������
+    // память
     function memoryClear() {
         memory = 0;
         }
@@ -126,6 +126,54 @@
         memory += parseFloat(currentInput);
         }
 
+function highlightButton(key) {
+    const button = document.querySelector(`button[data-key="${key}"]`);
+    if (button) {
+        button.classList.add('active');
+        setTimeout(() => {
+            button.classList.remove('active');
+        }, 150);
+    }
+}
+
+document.addEventListener('keydown', function (event) {
+    const key = event.key;
+
+    // подсвечивание клавиш
+    highlightButton(key);
+
+    if (!isNaN(key)) {
+        appendNumber(key);
+    } else if (key === '.') {
+        appendDot();
+    } else if (['+', '-', '*', '/'].includes(key)) {
+        chooseOperation(key);
+    } else if (key === 'Enter' || key === '=') {
+        highlightButton('=');
+        compute();
+    } else if (key === 'Escape') {
+        highlightButton('C');
+        clearAll();
+    } else if (key === 'Backspace') {
+        highlightButton('Backspace');
+        backspace();
+    } else if (key === 'Delete') {
+        highlightButton('AC');
+        clear();
+    } else if (key === '%') {
+        highlightButton('%');
+        percent();
+    } else if (key === 's') {
+        highlightButton('√');
+        square();
+    } else if (key === 'i') {
+        highlightButton('1/x');
+        inverse();
+    } else if (key === '-') {
+        highlightButton('±');
+        minusSign();
+    }
+});
     
 
     document.getElementById('close-button').addEventListener('click', () => {
