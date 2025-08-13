@@ -76,7 +76,7 @@ body
    }
    .control-button:disabled
    {
-       background-image: linear-gradient(to bottom left, #55A1FF, #002585 );
+       background-image: linear-gradient(to bottom left, #55A1FF, #0025B5 );
        box-shadow: inset -3px 1px 3px 0px #5581F5;
        color: lightgrey;
    }
@@ -95,13 +95,7 @@ body
        background-image:linear-gradient(to bottom left, #D95455, #FF3020);
        box-shadow: inset 0px 0px 3px 3px #B48A8B;
    }
-/*.control-button:disabled {
-    background-image: linear-gradient(to bottom right, #2251AA, #0025B5);
-    box-shadow: inset -3px 1px 3px 0px #5581B5, inset -3px -1px 3px 0px #0025B5;
-    color: lightgrey;
-    border: 1px solid #9fc5dc;*/
-    /*height: 25px;*/
-/*}*/
+
 
 /*----------------------------------------------------------------------------------*/
 #client-rect {
@@ -138,9 +132,6 @@ body
     background-image: linear-gradient(to right, #003377CC, #0077BBFF, #003377CC);
 }
 
-#border-right {
-    background-image: linear-gradient(to right, #003377CC, #0077BBFF, #003377CC);
-}
 /*----------------------------------------------------------------------------------*/
 #work-area
 {
@@ -157,7 +148,7 @@ body
 }
     #menu-bar button:hover 
     {
-        box-shadow: inset 1px 1px 0px 0px grey;
+        box-shadow: 1px 1px 0px 0px grey;
     }
 #menu-bar button:active
 {
@@ -240,7 +231,7 @@ body
     grid-template-rows: 40px 40px 40px 40px;
     grid-template-columns:50px 50px 50px;
     grid-gap:10px;
-    margin:10px 9px;
+    margin:10px 0px;
 }
 .operational-buttons
 {
@@ -248,5 +239,5 @@ body
     grid-template-rows: 40px 40px 40px 40px;
     grid-template-columns: 50px 50px;
     grid-gap: 10px;
-    margin: 10px 0px;
+    margin: 10px 9px;
 }

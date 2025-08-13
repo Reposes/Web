@@ -27,7 +27,7 @@
                     <button>View</button>
                     <button>Help</button>
                 </div>
-                <input type="text" name"display" id="display" value="0" />
+                <input type="text" name="display" id="display" value="0" readonly/>
                 <div class="buttons">
                     <div class="memory-buttons">
                         <div id="square"></div>
@@ -38,26 +38,26 @@
                     </div>
                     <div class="main-block"></div>
                     <div class="wide-buttons">
-                        <button>Backspace</button>
-                        <button>CE</button>
-                        <button>C</button>
+                        <button onclick="backspace()">Backspace</button>
+                        <button onclick="clear()">CE</button>
+                        <button onclick="clearAll()">C</button>
                     <div class="digits-and-operations">
                         <div class="digit-buttons">
-                            <button>7</button>
-                            <button>8</button>
-                            <button>9</button>
+                            <button onclick="appendNumber('7')">7</button>
+                            <button onclick="appendNumber('8')">8</button>
+                            <button onclick="appendNumber('9')">9</button>
 
-                             <button>4</button>
-                            <button>5</button>
-                            <button>6</button>
+                             <button onclick="appendNumber('4')">4</button>
+                            <button onclick="appendNumber('5')">5</button>
+                            <button onclick="appendNumber('6')">6</button>
 
-                             <button>1</button>
-                            <button>2</button>
-                            <button>3</button>
+                             <button onclick="appendNumber('1')">1</button>
+                            <button onclick="appendNumber('2')">2</button>
+                            <button onclick="appendNumber('3')">3</button>
 
-                             <button>0</button>
-                            <button>+/-</button>
-                            <button>.</button>
+                             <button onclick="appendNumber('0')">0</button>
+                            <button onclick="minusSign()">+/-</button>
+                            <button onclick="appendDot()">.</button>
 
                         </div>
                         <div class="operational-buttons">
@@ -82,5 +82,93 @@
         </div>
         <div id="border-bottom"></div>
     </div>
+
+    <script>
+        let currentInput = '0';
+        let previousInput = '';
+        let opertion = null;
+        let memory = 0;
+
+        const display = document.getElementById('display');
+
+        function updateDisplay() {
+            display.value =currentInput;
+        }
+
+        function appendNumber(number) {
+            if (currentInput === '0' || currentInput === 'Error') {
+                currentInput = number;
+            } else {
+                currentInput += number;
+            }
+            updateDisplay();
+        }
+
+        function appendDot() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+            }
+            updateDisplay();
+        }
+
+        function chooseOperation(operator) {
+            if (currentInput === 'Error') return;
+            if (previousInput !== '') {
+                compute();
+            }
+            operation = operator;
+            previousInput = currentInput;
+            currentInput = '0';
+        }
+
+        function compute() {
+            if (operation === null || previousInput === '' || currentInput === '') return;
+            let result;
+            const prev = parseFloat(previousInput);
+            const curr = parseFloat(currentInput);
+            switch (operation) {
+                case '+': result = prev + curr; break;
+                case '-': result = prev - curr; break;
+                case '*': result = prev * curr; break;
+                case '/+':
+                    if (curr === 0) { result = 'Error'; break }
+                    result = prev / curr;
+                    break;
+            }
+            currentInput = String(result);
+            opertion = null;
+            previousInput = '';
+            updateDisplay();
+        }
+
+        function clear() {
+            currentInput = '0';
+            updateDisplay();
+        }
+
+        function clearAll() {
+            currentInput = '0';
+            previousInput = '';
+            opertion = null;
+            updateDisplay();
+        }
+
+        function backspace() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        function minusSign() {
+            if (currentInput !== '0') {
+                currentInput = currentInput.startsWith('-') ? currentInput.slice(1) : '-' + currentInput;
+            } 
+            updateDisplay();
+        }
+
+    </script>
 </body>
 </html>
