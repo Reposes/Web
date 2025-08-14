@@ -96,8 +96,9 @@
         }
 
     function percent() {
-            const value = parseFloat(currentInput);
-    currentInput = String(value / 100);
+        const value = parseFloat(currentInput);
+        const valuePrev = parseFloat(previousInput);
+    currentInput = valuePrev*String(value / 100);
     updateDisplay();
         }
 
@@ -127,11 +128,11 @@
         }
 
 function highlightButton(key) {
-    const button = document.querySelector(`button[data-key="${key}"]`);
+    const button = document.querySelector(`button[data-key="${key}"]`); // ищем кнопку по data-key, пример: key === 1 найдется <button data-key="1">1</button>
     if (button) {
-        button.classList.add('active');
+        button.classList.add('active');  // включаем класс active для подсветки кнопки
         setTimeout(() => {
-            button.classList.remove('active');
+            button.classList.remove('active'); // автоматическое отжатие через 150 мс
         }, 150);
     }
 }
@@ -164,13 +165,13 @@ document.addEventListener('keydown', function (event) {
         highlightButton('%');
         percent();
     } else if (key === 's') {
-        highlightButton('√');
+        highlightButton('sqrt');
         square();
     } else if (key === 'i') {
         highlightButton('1/x');
         inverse();
-    } else if (key === '-') {
-        highlightButton('±');
+    } else if (key === '~') {
+        highlightButton('+/-');
         minusSign();
     }
 });
