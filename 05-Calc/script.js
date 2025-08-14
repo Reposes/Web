@@ -46,7 +46,7 @@
                 case '+': result = prev + curr; break;
     case '-': result = prev - curr; break;
     case '*': result = prev * curr; break;
-    case '/+':
+    case '/':
     if (curr === 0) {result = 'Error'; break }
     result = prev / curr;
     break;
