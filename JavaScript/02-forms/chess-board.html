@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Chess board</title>
+<style>
+    body {
+        font-family: 'Courier New', monospace;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .back-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 10px 20px;
+        background: rgba(0,0,0,0.3);
+        border-radius: 20px;
+        transition: background 0.3s;
+    }
+
+        .back-link:hover {
+            background: rgba(0,0,0,0.5);
+        }
+
+    .chess-board {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        margin: 40px 0;
+    }
+
+    pre {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.2;
+    }
+</style>
+</head>
+<body>
+    <a href="WebForms.html" class="back-link">← Назад</a>
+
+    <div class="chess-board">
+        <pre id="board"></pre>
+    </div>
+
+    <script>
+        const UPPER_LEFT_ANGLE = '┌';
+        const UPPER_RIGHT_ANGLE = '┐';
+        const LOWER_LEFT_ANGLE = '└';
+        const LOWER_RIGHT_ANGLE = '┘';
+        const HORIZONTAL_LINE = '──';
+        const VERTICAL_LINE = '│';
+        const WHITE_BOX = '██';
+        const BLACK_BOX = '  ';
+
+        const n = 8;
+
+        let boardContent = '';
+
+        for (let i = 0; i <= n; i++) {
+            for (let j = 0; j <= n; j++) {
+                if (i === 0 && j === 0) {
+                    boardContent += UPPER_LEFT_ANGLE;
+                } else if (i === 0 && j === n) {
+                    boardContent += UPPER_RIGHT_ANGLE;
+                } else if (i === n && j === 0) {
+                    boardContent += LOWER_LEFT_ANGLE;
+                } else if (i === n && j === n) {
+                    boardContent += LOWER_RIGHT_ANGLE;
+                } else if (i === 0 || i === n) {
+                    boardContent += HORIZONTAL_LINE;
+                } else if (j === 0 || j === n) {
+                    boardContent += VERTICAL_LINE;
+                } else {
+                    boardContent += (i % 2 === j % 2) ? WHITE_BOX : BLACK_BOX;
+                }
+            }
+            boardContent += '\n';
+        }
+
+        document.getElementById('board').textContent = boardContent;
+    </script>
+</body>
+</html>
