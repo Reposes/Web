@@ -9,20 +9,190 @@
     <h1>WebForms</h1>
     <form action="handler.php" method="post">
         <label for="base">Основание степени</label>
-        <input type="number" min="0" id="base" onchange="Power()"/> 
+        <input type="number" min="0" id="base" onchange="Power()" />
         <br />
         <label for="exponent">Показатель степени</label>
-        <input type="number" id="exponent" onchange="Power()"/>
-        <br/>
+        <input type="number" id="exponent" onchange="Power()" />
+        <br />
         <div id="power"></div>
-     </form>
+        <br />
+        <label for="number">Change number</label>
+        <input type="number" id="number" min="1" value="5" onchange="AllFigures(this.value)" oninput="All(this.value)" />
+        <h2>Square</h2>
+        <div id="square"></div>
+        <h2>Triangle 1</h2>
+        <div id="triangle_1"></div>
+        <h2>Triangle 2</h2>
+        <div id="triangle_2"></div>
+        <h2>Triangle 3</h2>
+        <div id="triangle_3"></div>
+        <h2>Triangle 4</h2>
+        <div id="triangle_4"></div>
+        <h2>Romb</h2>
+        <div id="romb"></div>
+        <h2>Pascal Triangle</h2>
+        <div id="pascal_triangle"></div>
+    </form>
     <script>
+        function AllFigures(n) {
+            Square(n);
+            Triangle_1(n);
+            Triangle_2(n);
+            Triangle_3(n);
+            Triangle_4(n);
+            Romb(n);
+            PascalTriangle(n);
+
+        }
         function Power()
         {
         let base = document.getElementById("base").value;
         let exponent = document.getElementById("exponent").value;
             document.getElementById("power").innerHTML = base ** exponent;
         }
+        function Square(n) {
+            let allFigure = '';
+            for (let i = 0; i < n; i++) {
+                let row = '';
+                for (let j = 0; j < n; j++) {
+                    row += "* ";
+                }
+                allFigure += row + "<br />";
+            }
+        document.getElementById("square").innerHTML = allFigure
+        }
+        function Triangle_1(n) {
+            let allFigure = '';
+            for (let i = 0; i < n; i++) {
+                let row = '';
+                for (let j = 0; j <= i; j++) {
+                    row += "* ";
+                }
+                allFigure += row + "<br />";
+            }
+        document.getElementById("triangle_1").innerHTML = allFigure
+        }
+        function Triangle_2(n) {
+            let allFigure = '';
+            for (let i = 0; i < n; i++) {
+                let row = '';
+                for (let j = i; j < n; j++) {
+                    row += "* ";
+                }
+                allFigure += row + "<br />";
+            }
+        document.getElementById("triangle_2").innerHTML = allFigure
+        }
+
+        function Triangle_3(n) {
+            let allFigure = '';
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n - i - 1 ; j++) {
+                    allFigure += "&nbsp;&nbsp;&nbsp;";
+                }
+                for (let k = 0; k <= i; k++) {
+                    allFigure += "* ";
+                }
+                allFigure += "<br />";
+            }
+            document.getElementById("triangle_3").innerHTML = allFigure
+        }
+
+        function Triangle_4(n) {
+            let allFigure = '';
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < i ; j++) {
+                    allFigure += "&nbsp;&nbsp;&nbsp;";
+                }
+                for (let k = i; k < n; k++) {
+                    allFigure += "* ";
+                }
+                allFigure += "<br />";
+            }
+            document.getElementById("triangle_4").innerHTML = allFigure
+        }
+        function Romb(n) {
+            let allFigure = '';
+            // верхняя часть ромба
+            for (let i = 0; i < n; i++) {
+                //  пробелы слева
+                for (let j = 0; j < n - i - 1; j++) {
+                    allFigure += "&nbsp;&nbsp;";
+                }
+                allFigure += "/";
+                // пробелы внутри
+                for (let k = 0; k < 2 * i; k++) {
+                    allFigure += "&nbsp;&nbsp;";
+                }
+                allFigure += "\\";
+                allFigure += "<br />";
+            }
+
+            // нижняя часть ромба
+            for (let i = n - 1; i >= 0; i--) {
+             for (let j = 0; j < n - i - 1; j++) {
+                    allFigure += "&nbsp;&nbsp;";
+                }
+                allFigure += "\\";
+                for (let k = 0; k < 2 * i; k++) {
+                    allFigure += "&nbsp;&nbsp;";
+                }
+                allFigure += "/";
+                allFigure += "<br />";
+            }
+            document.getElementById("romb").innerHTML = allFigure
+        }
+
+            function PascalTriangle(n) {
+                let allFigure = '';
+                // сначала вычисляем все числа, чтобы найти максимальную ширину
+                let triangle = [];
+                let maxNumber = 0;
+
+                for (let i = 0; i < n; i++) {
+                    let row = [];
+                    let C = 1;
+                    for (let j = 0; j <= i; j++) {
+                        row.push(C);
+                        if (C > maxNumber) maxNumber = C;
+                        C = Math.round(C * (i - j) / (j + 1));
+                    }
+                    triangle.push(row);
+                }
+
+                const maxWidth = maxNumber.toString().length;
+                const cellWidth = maxWidth + 2; // ширина одной ячейки
+
+                for (let i = 0; i < n; i++) {
+                    // Пробелы для центрирования
+                    const spacesBefore = (n - i - 1) * Math.ceil(cellWidth / 2);
+                    for (let j = 0; j < spacesBefore; j++) {
+                        allFigure += "&nbsp;";
+                    }
+
+                    // Выводим числа строки
+                    for (let j = 0; j <= i; j++) {
+                        const num = triangle[i][j];
+                        const numStr = num.toString();
+                        const paddingLeft = "&nbsp;".repeat(Math.ceil((cellWidth - numStr.length) / 2));
+                        const paddingRight = "&nbsp;".repeat(Math.floor((cellWidth - numStr.length) / 2));
+                        allFigure += paddingLeft + numStr + paddingRight;
+                    }
+                    allFigure += "<br />";
+                }
+                document.getElementById("pascal_triangle").innerHTML = allFigure;
+            }
+        // вызываем функцию при загрузке страницы
+        window.onload = function () {
+            let initialValue = document.getElementById("number").value
+            Square(initialValue);
+            Triangle_1(initialValue);
+            Triangle_2(initialValue);
+            Triangle_3(initialValue);
+            Triangle_4(initialValue);
+            Romb(initialValue);
+            PascalTriangle(initialValue);
+        };
     </script>
 </body>
 </html>
