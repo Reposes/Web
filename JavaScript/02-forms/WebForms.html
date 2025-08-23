@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>WebForms</title>
+</head>
+<body>
+    <h1>WebForms</h1>
+    <form action="handler.php" method="post">
+        <label for="base">Основание степени</label>
+        <input type="number" min="0" id="base" onchange="Power()"/> 
+        <br />
+        <label for="exponent">Показатель степени</label>
+        <input type="number" id="exponent" onchange="Power()"/>
+        <br/>
+        <div id="power"></div>
+     </form>
+    <script>
+        function Power()
+        {
+        let base = document.getElementById("base").value;
+        let exponent = document.getElementById("exponent").value;
+            document.getElementById("power").innerHTML = base ** exponent;
+        }
+    </script>
+</body>
+</html>
