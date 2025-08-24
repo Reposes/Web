@@ -3,8 +3,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <title>Chess</title>
-    <style>
+    <!--<style>
     * {
     margin: 0;
     padding: 0;
@@ -145,20 +146,19 @@
     align-items: center;
     }
     }
-    </style>
+    </style>-->
 </head>
 <body>
     <div class="container">
-        <h1>Шахматная доска</h1>
+        <h1>Hard chess</h1>
 
         <p class="description">
-            Введите размер шахматной доски и нажмите "Создать доску".
-            Каждая клетка будет состоять из n x n символов, а вся доска - из n x n клеток.
+            Input size of board and click "Create chess".
         </p>
 
         <div class="input-container">
-            <input type="number" id="boardSize" min="1" max="10" value="4" placeholder="Размер доски">
-            <button onclick="drawChessBoard()">Создать доску</button>
+            <input type="number" id="boardSize" min="1" max="10" value="4" placeholder="Size chess">
+            <button onclick="drawChessBoard()">Create chess</button>
         </div>
 
         <div class="chess-container">
@@ -168,13 +168,13 @@
         </div>
 
         <div class="navigation">
-            <a href="WebForms.html" class="nav-link">← Назад</a>
-            <a href="chess-board.html" class="nav-link">Только доска</a>
+            <a href="WebForms.html" class="nav-link">← Back</a>
+            <a href="chess-board.html" class="nav-link">Chess board</a>
         </div>
     </div>
 
     <div class="footer">
-        <p>Реализация шахматной доски на JavaScript</p>
+        <p>Implementation of a chessboard on JavaScript</p>
     </div>
 
     <script>

@@ -3,8 +3,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
     <title>Chess board</title>
-<style>
+<!--<style>
     body {
         font-family: 'Courier New', monospace;
         margin: 0;
@@ -47,51 +48,86 @@
         font-size: 18px;
         line-height: 1.2;
     }
-</style>
+</style>-->
 </head>
 <body>
-    <a href="WebForms.html" class="back-link">← Назад</a>
+    <div class="container">
+        <h1>Chess board</h1>
 
-    <div class="chess-board">
+        <p class="description">
+            Input size of board and click "Create chess".
+        </p>
+
+        <div class="input-container">
+            <input type="number" id="boardSize" min="1" max="10" value="4" placeholder="Size chess board">
+            <button onclick="drawChessBoard()">Create chess</button>
+        </div>
+
+        <div class="chess-container">
+            <div class="chess-board">
+                <pre id="chessBoard"></pre>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="WebForms.html" class="nav-link">← Back</a>
+            <a href="chess.html" class="nav-link">Hard chess</a>
+        </div>
+    </div>
+    <!--<div class="chess-board">
         <pre id="board"></pre>
     </div>
+    <a href="WebForms.html" class="nav-link">← Назад</a>-->
 
     <script>
-        const UPPER_LEFT_ANGLE = '┌';
-        const UPPER_RIGHT_ANGLE = '┐';
-        const LOWER_LEFT_ANGLE = '└';
-        const LOWER_RIGHT_ANGLE = '┘';
-        const HORIZONTAL_LINE = '──';
-        const VERTICAL_LINE = '│';
-        const WHITE_BOX = '██';
-        const BLACK_BOX = '  ';
+        function drawChessBoard() {
 
-        const n = 8;
+            const UPPER_LEFT_ANGLE = '┌';
+            const UPPER_RIGHT_ANGLE = '┐';
+            const LOWER_LEFT_ANGLE = '└';
+            const LOWER_RIGHT_ANGLE = '┘';
+            const HORIZONTAL_LINE = '──';
+            const VERTICAL_LINE = '│';
+            const WHITE_BOX = '██';
+            const BLACK_BOX = '  ';
 
-        let boardContent = '';
+            const sizeInput = document.getElementById('boardSize');
+            let n = parseInt(sizeInput.value)+1;
 
-        for (let i = 0; i <= n; i++) {
-            for (let j = 0; j <= n; j++) {
-                if (i === 0 && j === 0) {
-                    boardContent += UPPER_LEFT_ANGLE;
-                } else if (i === 0 && j === n) {
-                    boardContent += UPPER_RIGHT_ANGLE;
-                } else if (i === n && j === 0) {
-                    boardContent += LOWER_LEFT_ANGLE;
-                } else if (i === n && j === n) {
-                    boardContent += LOWER_RIGHT_ANGLE;
-                } else if (i === 0 || i === n) {
-                    boardContent += HORIZONTAL_LINE;
-                } else if (j === 0 || j === n) {
-                    boardContent += VERTICAL_LINE;
-                } else {
-                    boardContent += (i % 2 === j % 2) ? WHITE_BOX : BLACK_BOX;
-                }
+            // Валидация ввода
+            if (isNaN(n) || n < 1 || n > 10) {
+                alert('Пожалуйста, введите число от 1 до 10');
+                sizeInput.value = '4';
+                n = 4;
             }
-            boardContent += '\n';
-        }
 
-        document.getElementById('board').textContent = boardContent;
+            let boardContent = '';
+
+            for (let i = 0; i <= n; i++) {
+                for (let j = 0; j <= n; j++) {
+                    if (i === 0 && j === 0) {
+                        boardContent += UPPER_LEFT_ANGLE;
+                    } else if (i === 0 && j === n) {
+                        boardContent += UPPER_RIGHT_ANGLE;
+                    } else if (i === n && j === 0) {
+                        boardContent += LOWER_LEFT_ANGLE;
+                    } else if (i === n && j === n) {
+                        boardContent += LOWER_RIGHT_ANGLE;
+                    } else if (i === 0 || i === n) {
+                        boardContent += HORIZONTAL_LINE;
+                    } else if (j === 0 || j === n) {
+                        boardContent += VERTICAL_LINE;
+                    } else {
+                        boardContent += (i % 2 === j % 2) ? WHITE_BOX : BLACK_BOX;
+                    }
+                }
+                boardContent += '\n';
+            }
+
+            document.getElementById('chessBoard').textContent = boardContent;
+        }
+            // рисуем доску при загрузке страницы
+            window.onload = drawChessBoard;
     </script>
 </body>
 </html>
