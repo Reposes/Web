@@ -1,0 +1,19 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: Roboto Condensed;
+    font-size: 32px;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#switch-background {
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    /*background-image: url("img/moon.png");*/
+}
