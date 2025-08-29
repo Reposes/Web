@@ -16,8 +16,13 @@ function SwitchBackground() {
 	let switchBackground = document.getElementById('switch-background');
 	if (switchBackground.style.backgroundImage === 'url("img/moon.png")') {
 		switchBackground.style.backgroundImage = 'url("img/sun.png")';
+		document.body.style.backgroundColor = "#333"
+		document.body.style.color = "#fff";
+		
 	}
 	else {
 		switchBackground.style.backgroundImage = 'url("img/moon.png")';
+		document.body.style.backgroundColor = "#fff"
+		document.body.style.color = "#000";
 	}
 }
