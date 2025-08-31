@@ -8,26 +8,56 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="header">
-        Header
-        <span id="mouse"></span>
-        <div id="switch-background" onclick="SwitchBackground()" style="background-image:url('img/moon.png');"></div>
+    <div class="container">
+        WebForms
+        <div id="header">
+            <div class="header-title">
+
+                <h1>Калькулятор степеней</h1>
+
+                <form>
+                    <label for="base">Основание степени</label>
+                    <input type="number" min="0" id="base" onchange="power()" placeholder="Введите число" />
+
+                    <label for="exponent">Показатель степени</label>
+                    <input type="number" id="exponent" onchange="power()" placeholder="Введите степень" />
+
+                    <div id="power">Результат</div>
+                </form>
+
+            </div>
+            <span id="mouse">X = 0, Y = 0</span>
+            <div class="theme-controls">
+                <div class="theme-switcher">
+                    <div id="switch-background" onclick="switchTheme()"></div>
+                    <div class="slider-container" id="themeSliderContainer">
+                        <div class="slider" id="themeSlider"></div>
+                    </div>
+                    <div class="labels">
+                        <span>Светлая</span>
+                        <span>Тёмная</span>
+                    </div>
+                </div>
+
+                <div class="transition-control">
+                    <div>Время перехода: </div>
+                    <div class="transition-slider-container" id="transitionSliderContainer">
+                        <div class="transition-slider" id="transitionSlider"></div>
+                    </div>
+                    <div class="transition-labels">
+                        <span>Быстрее</span>
+                        <span id="transition-value">2.0s</span>
+                        <span>Медленнее</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <h1>WebForms</h1>
-    <form action="header.php" method="post">
-        <label for="base">Основание степени</label>
-        <input type="number" min="0" id="base" onchange="Power()" />
-        <br />
 
-        <label for="exponent">Показатель степени</label>
-        <input type="number" id="exponent" onchange="Power()" />
-        <br />
-
-        <div id="power"></div>
-        
-    </form>
     <script src="function.js">
 
     </script>
 </body>
 </html>
+
