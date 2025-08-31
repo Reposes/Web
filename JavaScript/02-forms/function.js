@@ -14,15 +14,18 @@ document.addEventListener("mousemove", GetMouseCoords);
 
 function SwitchBackground() {
 	let switchBackground = document.getElementById('switch-background');
-	if (switchBackground.style.backgroundImage === 'url("img/moon.png")') {
-		switchBackground.style.backgroundImage = 'url("img/sun.png")';
-		document.body.style.backgroundColor = "#333"
-		document.body.style.color = "#fff";
-		
-	}
-	else {
-		switchBackground.style.backgroundImage = 'url("img/moon.png")';
-		document.body.style.backgroundColor = "#fff"
-		document.body.style.color = "#000";
-	}
+	//if (switchBackground.style.backgroundImage === 'url("img/moon.png")') {
+	//	switchBackground.style.backgroundImage = 'url("img/sun.png")';
+	//	document.body.className = 'dark';
+	//}
+	//else {
+	//	switchBackground.style.backgroundImage = 'url("img/moon.png")';
+	//	document.body.className = 'light';
+	//}
+
+
+	let delay = document.getElementById('delay').value;
+	document.body.style.transition = `background-color ${delay}s, color ${delay}s`;
+	document.getElementById('switch-background').style.transition = `background-image ${delay}s`;
+	document.body.className = document.body.className === "light" ? "dark" : "light";
 }
