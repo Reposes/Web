@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebForms with Smooth Theme Transition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+        :root {
+            --bg-r: 255;
+            --bg-g: 255;
+            --bg-b: 255;
+            --text-r: 0;
+            --text-g: 0;
+            --text-b: 0;
+            --power-bg-r: 249;
+            --power-bg-g: 249;
+            --power-bg-b: 249;
+            --power-border-r: 204;
+            --power-border-g: 204;
+            --power-border-b: 204;
+            --slider-container-bg: linear-gradient(to right, #ffffff 0%, #222222 100%);
+            --slider-bg: #fff;
+            --transition-slider-container-bg: #ccc;
+            --transition-slider-bg: #fff;
+        }
+
+        body {
+            font-family: Roboto Condensed;
+            font-size: 32px;
+            transition: background-color var(--transition-time, 2s), color var(--transition-time, 2s);
+            background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+            color: rgb(var(--text-r), var(--text-g), var(--text-b));
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        #mouse {
+            font-size: 14px;
+            margin-right: 20px;
+        }
+
+        .theme-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #switch-background {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+            cursor: pointer;
+            background-image: url("img/moon.png");
+        }
+
+        .dark #switch-background {
+            background-image: url("img/sun.png")
+        }
+
+        .slider-container, .transition-slider-container {
+            width: 200px;
+            height: 30px;
+            background: var(--slider-container-bg);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        .slider {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #fff; /*var(--slider-bg);*/
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .transition-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /*.transition-slider-container {
+            width: 200px;
+            height: 30px;
+            background-color: var(--slider-container-bg);*/ /*var(--transition-slider-container-bg);*/
+        /*border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            margin: 10px 0;
+        }*/
+
+        .transition-slider {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #fff; /*var(--transition-slider-bg);*/
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s ease;
+        }
+
+        .transition-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        #transition-value {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #power {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid rgb(var(--power-border-r), var(--power-border-g), var(--power-border-b));
+            border-radius: 4px;
+            background-color: rgb(var(--power-bg-r), var(--power-bg-g), var(--power-bg-b));
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div>Header</div>
+        <span id="mouse"></span>
+        <div class="theme-controls">
+            <div class="theme-switcher">
+                <div id="switch-background" onclick="switchTheme()"></div>
+                <div class="slider-container" id="themeSliderContainer">
+                    <div class="slider" id="themeSlider"></div>
+                </div>
+                <div class="labels">
+                    <span>Светлая</span>
+                    <span>Тёмная</span>
+                </div>
+            </div>
+
+            <div class="transition-control">
+                <div>Время перехода: </div>
+                <div class="transition-slider-container" id="transitionSliderContainer">
+                    <div class="transition-slider" id="transitionSlider"></div>
+                </div>
+                <div class="transition-labels">
+                    <span>Быстрее</span>
+                    <span id="transition-value">2.0s</span>
+                    <span>Mедленнее</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>WebForms</h1>
+    <form action="header.php" method="post">
+        <label for="base">Основание степени</label>
+        <input type="number" min="0" id="base" onchange="power()" />
+
+        <label for="exponent">Показатель степени</label>
+        <input type="number" id="exponent" onchange="power()" />
+
+        <div id="power"></div>
+    </form>
+
+    <script>
+        // Инициализация переменных
+        let transitionTime = 2;
+        let themePosition = 0;
+
+        // Конфигурация цветовых схем
+        const colorConfig = {
+            light: {
+                bg: { r: 255, g: 255, b: 255 },
+                text: { r: 0, g: 0, b: 0 },
+                powerBg: { r: 249, g: 249, b: 249 },
+                powerBorder: { r: 204, g: 204, b: 204 }
+            },
+            dark: {
+                bg: { r: 34, g: 34, b: 34 },
+                text: { r: 240, g: 240, b: 240 },
+                powerBg: { r: 51, g: 51, b: 51 },
+                powerBorder: { r: 68, g: 68, b: 68 }
+            }
+        };
+
+        // Универсальные функции
+        function interpolateColor(start, end, position) {
+            return Math.round(start * (1 - position) + end * position);
+        }
+
+        function interpolateRGB(startRGB, endRGB, position) {
+            return {
+                r: interpolateColor(startRGB.r, endRGB.r, position),
+                g: interpolateColor(startRGB.g, endRGB.g, position),
+                b: interpolateColor(startRGB.b, endRGB.b, position)
+            };
+        }
+
+        function updateSliderPosition(container, slider, position) {
+            const rect = container.getBoundingClientRect();
+            slider.style.left = (position * (rect.width - slider.offsetWidth - 4) + 2) + 'px';
+        }
+
+        function createSlider(containerId, sliderId, onUpdate, initialValue = 0) {
+            const container = document.getElementById(containerId);
+            const slider = document.getElementById(sliderId);
+
+            updateSliderPosition(container, slider, initialValue);
+
+            container.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+
+                const moveSlider = (e) => {
+                    const rect = container.getBoundingClientRect();
+                    let pos = (e.clientX - rect.left) / rect.width;
+                    pos = Math.max(0, Math.min(1, pos));
+
+                    updateSliderPosition(container, slider, pos);
+                    onUpdate(pos);
+                };
+
+                moveSlider(e);
+
+                const events = {
+                    mousemove: (e) => moveSlider(e),
+                    mouseup: () => {
+                        document.removeEventListener('mousemove', events.mousemove);
+                        document.removeEventListener('mouseup', events.mouseup);
+                    }
+                };
+
+                document.addEventListener('mousemove', events.mousemove);
+                document.addEventListener('mouseup', events.mouseup);
+            });
+
+            return { setValue: (value) => { updateSliderPosition(container, slider, value); onUpdate(value); } };
+        }
+
+        // Специфичные функции
+        function power() {
+            const base = document.getElementById("base").value;
+            const exponent = document.getElementById("exponent").value;
+            document.getElementById("power").innerHTML = base && exponent ? Math.pow(base, exponent) : "";
+        }
+
+        function getMouseCoords(event) {
+            document.getElementById("mouse").innerHTML = `X = ${event.clientX}, Y = ${event.clientY}`;
+        }
+
+        function switchTheme() {
+            themePosition = themePosition > 0.5 ? 0 : 1;
+            updateTheme(themePosition);
+            themeSlider.setValue(themePosition);
+        }
+
+        function updateSwitchIcon() {
+            const switchBackground = document.getElementById('switch-background');
+            switchBackground.style.backgroundImage = `url("img/${themePosition > 0.5 ? 'sun' : 'moon'}.png")`;
+        }
+
+        function updateTheme(position) {
+            themePosition = position;
+
+            const colors = {};
+            Object.entries(colorConfig.light).forEach(([key, lightColor]) => {
+                colors[key] = interpolateRGB(lightColor, colorConfig.dark[key], position);
+            });
+
+            const cssVars = {
+                '--bg-r': colors.bg.r, '--bg-g': colors.bg.g, '--bg-b': colors.bg.b,
+                '--text-r': colors.text.r, '--text-g': colors.text.g, '--text-b': colors.text.b,
+                '--power-bg-r': colors.powerBg.r, '--power-bg-g': colors.powerBg.g, '--power-bg-b': colors.powerBg.b,
+                '--power-border-r': colors.powerBorder.r, '--power-border-g': colors.powerBorder.g, '--power-border-b': colors.powerBorder.b
+            };
+
+            Object.entries(cssVars).forEach(([key, value]) => {
+                document.documentElement.style.setProperty(key, value);
+            });
+
+            updateSwitchIcon();
+        }
+
+        function updateTransitionTime(time) {
+            document.getElementById('transition-value').textContent = time.toFixed(1) + 's';
+            document.documentElement.style.setProperty('--transition-time', time + 's');
+        }
+
+        // Инициализация
+        document.addEventListener('mousemove', getMouseCoords);
+
+        const themeSlider = createSlider('themeSliderContainer', 'themeSlider', updateTheme, themePosition);
+        const transitionSlider = createSlider('transitionSliderContainer', 'transitionSlider',
+            (pos) => updateTransitionTime(0.5 + pos * 4.5), (transitionTime - 0.5) / 4.5);
+
+        updateTransitionTime(transitionTime);
+    </script>
+</body>
+</html>

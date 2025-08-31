@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebForms</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: Roboto Condensed;
+            font-size: 32px;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        #mouse {
+            font-size: 14px;
+            margin-right: 20px;
+        }
+
+        #switch-background {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+            cursor: pointer;
+            background-image: url("img/sun.png");
+        }
+
+        .dark #switch-background {
+            background-image: url("img/sun.png");
+        }
+
+        .theme-switcher {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slider-container {
+            width: 200px;
+            height: 30px;
+            background: linear-gradient(to right, #ffffff 0%, #222222 100%);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        .slider {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #power {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .dark #power {
+            background-color: #333;
+            border-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div>Header</div>
+        <span id="mouse"></span>
+        <div class="theme-switcher">
+            <div id="switch-background" onclick="switchTheme()"></div>
+            <div class="slider-container" id="sliderContainer">
+                <div class="slider" id="slider"></div>
+            </div>
+            <div class="labels">
+                <span>Светлая</span>
+                <span>Тёмная</span>
+            </div>
+        </div>
+    </div>
+    <h1>WebForms</h1>
+    <form action="header.php" method="post">
+        <label for="base">Основание степени</label>
+        <input type="number" min="0" id="base" onchange="power()" />
+
+        <label for="exponent">Показатель степени</label>
+        <input type="number" id="exponent" onchange="power()" />
+
+        <div id="power"></div>
+    </form>
+
+    <script>
+        function power() {
+            let base = document.getElementById("base").value;
+            let exponent = document.getElementById("exponent").value;
+            if (base && exponent) {
+                document.getElementById("power").innerHTML = Math.pow(base, exponent);
+            } else {
+                document.getElementById("power").innerHTML = "";
+            }
+        }
+
+        function getMouseCoords(event) {
+            let x = event.clientX;
+            let y = event.clientY;
+            document.getElementById("mouse").innerHTML = `X = ${x}, Y = ${y}`;
+        }
+        document.addEventListener("mousemove", getMouseCoords);
+
+        function switchTheme() {
+            document.body.classList.toggle('dark');
+            updateSwitchIcon();
+        }
+
+        function updateSwitchIcon() {
+            const switchBackground = document.getElementById('switchTheme');
+            if (document.body.classList.contains('dark')) {
+                switchTheme.style.backgroundImage = 'url("img/sun.png")';
+            } else {
+                switchTheme.style.backgroundImage = 'url("img/moon.png")';
+            }
+        }
+
+        // Инициализация слайдера
+        const slider = document.getElementById('slider');
+        const sliderContainer = document.getElementById('sliderContainer');
+
+        // Установка начального положения слайдера
+        slider.style.left = '2px';
+
+        sliderContainer.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+
+            const moveSlider = (e) => {
+                const rect = sliderContainer.getBoundingClientRect();
+                let pos = (e.clientX - rect.left) / rect.width;
+                pos = Math.max(0, Math.min(1, pos));
+
+                // Установка позиции слайдера
+                slider.style.left = (pos * (rect.width - slider.offsetWidth)) + 'px';
+
+                // Постепенное изменение темы
+                const darkAmount = pos;
+                const lightAmount = 1 - pos;
+
+                // Вычисление промежуточных цветов
+                const bgR = Math.round(255 * lightAmount + 34 * darkAmount);
+                const bgG = Math.round(255 * lightAmount + 34 * darkAmount);
+                const bgB = Math.round(255 * lightAmount + 34 * darkAmount);
+
+                const textR = Math.round(0 * lightAmount + 240 * darkAmount);
+                const textG = Math.round(0 * lightAmount + 240 * darkAmount);
+                const textB = Math.round(0 * lightAmount + 240 * darkAmount);
+
+                // Применение цветов
+                document.body.style.backgroundColor = `rgb(${bgR}, ${bgG}, ${bgB})`;
+                document.body.style.color = `rgb(${textR}, ${textG}, ${textB})`;
+
+                // Обновление иконки переключателя
+                if (pos > 0.5) {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+                updateSwitchIcon();
+            };
+
+            moveSlider(e);
+
+            const mouseMove = (e) => moveSlider(e);
+            const mouseUp = () => {
+                document.removeEventListener('mousemove', mouseMove);
+                document.removeEventListener('mouseup', mouseUp);
+            };
+
+            document.addEventListener('mousemove', mouseMove);
+            document.addEventListener('mouseup', mouseUp);
+        });
+
+        // Инициализация иконки
+        updateSwitchIcon();
+    </script>
+</body>
+</html>

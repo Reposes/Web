@@ -1,0 +1,95 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: Roboto Condensed;
+    font-size: 32px;
+    transition: background 2s, color 2s; /* Значение по умолчанию */
+}
+
+    body.dark {
+        background: #222;
+        color: #f0f0f0;
+    }
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 90px 20px 2px;
+}
+
+.transition-control {
+    display: flex;
+    flex-direction: column;
+    align-items:end;
+}
+
+#mouse {
+    font-size: 14px;
+}
+
+#switch-background {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.slider-container {
+    width: 200px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: background 2s, color 2s;
+}
+
+.dark .slider-container {
+    background: #555;
+}
+
+.slider {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.1s ease;
+}
+
+.dark .slider {
+    background: #ddd;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+#transition-value {
+    font-weight: bold;
+}
+
+input[type="number"] {
+    font-size: 16px;
+    padding: 5px;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+#power {
+    margin-top: 15px;
+    font-weight: bold;
+}
