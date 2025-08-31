@@ -18,6 +18,7 @@
             --input-text: 0, 0, 0;
             --input-border: 0, 0, 0;
             --power-bg: 240, 240, 240;
+            --power-text: 0,0,0;
             --power-border: 100, 100, 100;
             --slider-bg: 180, 180, 180;
             --slider-handle: 255, 255, 255;
@@ -42,6 +43,26 @@
             padding: 15px;
             overflow-x: hidden;
             line-height: 1.5;
+        }
+        /*  плавный переход для всех контейнеров и интерактивных блоков */
+        #header,
+        form,
+        input[type="number"],
+        #power,
+        .slider-container,
+        .transition-slider-container,
+        .theme-switcher,
+        .transition-control {
+            transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
+        }
+
+        /* плавный переход для текста и лейблов */
+        label,
+        h1,
+        .labels span,
+        .transition-labels span,
+        #transition-value {
+            transition: color var(--transition-time), background-color var(--transition-time), border-color var(--transition-time);
         }
 
         .container {
@@ -116,11 +137,11 @@
                 transform: scale(1.1);
             }
 
-        .dark #switch-background {
+        /*.dark #switch-background {
             background-image: url("img/sun.png");
             background-color: rgb(80, 80, 80);
             border-color: rgb(180, 180, 180);
-        }
+        }*/
 
         .slider-container, .transition-slider-container {
             width: 220px;
@@ -252,6 +273,7 @@
             color: rgb(var(--input-text));
             transition: all 0.2s ease;
             font-weight: 500;
+            transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
         }
 
             input[type="number"]:focus {
@@ -262,6 +284,7 @@
 
             input[type="number"]::placeholder {
                 color: rgba(var(--input-text), 0.5);
+                transition: color var(--transition-time);
             }
 
         #power {
@@ -273,7 +296,7 @@
             background-color: rgb(var(--power-bg));
             text-align: center;
             font-size: 1.6rem;
-            color: rgb(var(--text-r), var(--text-g), var(--text-b));
+            color: rgb(var(--power-text)); /*rgb(var(--text-r), var(--text-g), var(--text-b))*/
             font-weight: 700;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
@@ -512,6 +535,11 @@
                 b: Math.round(0 * (1 - position) + 240 * position)
             };
 
+            const inputText = {
+                r: Math.round(0 * (1 - position) + 240 * position),
+                g: Math.round(0 * (1 - position) + 240 * position),
+                b: Math.round(0 * (1 - position) + 240 * position)
+            }
             const inputBg = {
                 r: Math.round(255 * (1 - position) + 60 * position),
                 g: Math.round(255 * (1 - position) + 60 * position),
@@ -542,6 +570,23 @@
                 b: Math.round(180 * (1 - position) + 100 * position)
             };
 
+            const powerText = {
+                r: Math.round(0 * (1 - position) + 240 * position),
+                g: Math.round(0 * (1 - position) + 240 * position),
+                b: Math.round(0 * (1 - position) + 240 * position)
+            };
+
+            const powerBg = {
+                r: Math.round(240 * (1 - position) + 50 * position),
+                g: Math.round(240 * (1 - position) + 50 * position),
+                b: Math.round(240 * (1 - position) + 50 * position)
+            };
+
+            const powerBorder = {
+                r: Math.round(100 * (1 - position) + 150 * position),
+                g: Math.round(100 * (1 - position) + 150 * position),
+                b: Math.round(100 * (1 - position) + 150 * position)
+            };
             // Записываем в CSS переменные
             document.documentElement.style.setProperty('--bg-r', bg.r);
             document.documentElement.style.setProperty('--bg-g', bg.g);
@@ -554,11 +599,16 @@
             document.documentElement.style.setProperty('--input-bg', `${inputBg.r}, ${inputBg.g}, ${inputBg.b}`);
             document.documentElement.style.setProperty('--input-border', `${inputBorder.r}, ${inputBorder.g}, ${inputBorder.b}`);
 
+            document.documentElement.style.setProperty('--input-text', `${inputText.r}, ${inputText.g}, ${inputText.b}`);
+            document.documentElement.style.setProperty('--power-text', `${powerText.r}, ${powerText.g}, ${powerText.b}`);
+
             document.documentElement.style.setProperty('--header-bg', `${headerBg.r}, ${headerBg.g}, ${headerBg.b}`);
             document.documentElement.style.setProperty('--header-border', `${headerBorder.r}, ${headerBorder.g}, ${headerBorder.b}`);
 
             document.documentElement.style.setProperty('--slider-bg', `${sliderBg.r}, ${sliderBg.g}, ${sliderBg.b}`);
 
+            document.documentElement.style.setProperty('--power-bg', `${powerBg.r}, ${powerBg.g}, ${powerBg.b}`);
+            document.documentElement.style.setProperty('--power-border', `${powerBorder.r}, ${powerBorder.g}, ${powerBorder.b}`);
             // определяем иконку по позиции
             isDarkTheme = position > 0.5;
             updateSwitchIcon();
