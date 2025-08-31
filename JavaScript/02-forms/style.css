@@ -1,19 +1,377 @@
 ﻿
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --bg-r: 255;
+    --bg-g: 255;
+    --bg-b: 255;
+    --text-r: 0;
+    --text-g: 0;
+    --text-b: 0;
+    --input-bg: 255, 255, 255;
+    --input-text: 0, 0, 0;
+    --input-border: 0, 0, 0;
+    --power-bg: 240, 240, 240;
+    --power-text: 0,0,0;
+    --power-border: 100, 100, 100;
+    --slider-bg: 180, 180, 180;
+    --slider-handle: 255, 255, 255;
+    --header-bg: 240, 240, 240;
+    --header-border: 200, 200, 200;
+    --transition-time: 0.5s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Roboto Condensed;
-    font-size: 32px;
+    font-size: 16px;
+    transition: background-color var(--transition-time), color var(--transition-time);
+    background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+    color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    min-height: 100vh;
+    padding: 15px;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+/*  плавный переход для всех контейнеров и интерактивных блоков */
+#header,
+form,
+input[type="number"],
+#power,
+.slider-container,
+.transition-slider-container,
+.theme-switcher,
+.transition-control {
+    transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
+}
+
+/* плавный переход для текста и лейблов */
+label,
+h1,
+.labels span,
+.transition-labels span,
+#transition-value {
+    transition: color var(--transition-time), background-color var(--transition-time), border-color var(--transition-time);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 #header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: rgb(var(--header-bg));
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(var(--header-border));
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: rgb(var(--text-r), var(--text-g), var(--text-b));
+}
+
+#mouse {
+    font-size: 12px;
+    padding: 8px 15px;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    border-radius: 18px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgb(120, 120, 120);
+}
+
+.theme-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: rgb(var(--header-bg));
+    border-radius: 12px;
+    border: 2px solid rgb(var(--header-border));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 #switch-background {
-    width: 32px;
-    height: 32px;
-    background-size: 32px 32px;
-    /*background-image: url("img/moon.png");*/
+    width: 42px;
+    height: 42px;
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-image: url("img/moon.png");
+    transition: transform 0.2s ease;
+    border-radius: 50%;
+    background-color: rgb(220, 220, 220);
+    border: 2px solid rgb(100, 100, 100);
 }
+
+    #switch-background:hover {
+        transform: scale(1.1);
+    }
+
+/*.dark #switch-background {
+            background-image: url("img/sun.png");
+            background-color: rgb(80, 80, 80);
+            border-color: rgb(180, 180, 180);
+        }*/
+
+.slider-container, .transition-slider-container {
+    width: 220px;
+    height: 32px;
+    background-color: rgb(var(--slider-bg));
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    margin: 12px 0;
+    border: 2px solid rgb(120, 120, 120);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.slider {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: rgb(var(--slider-handle));
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: left 0.15s ease;
+    border: 2px solid rgb(80, 80, 80);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+    .labels span {
+        color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    }
+
+.transition-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+    padding: 15px;
+    background-color: rgb(var(--header-bg));
+    border-radius: 12px;
+    border: 2px solid rgb(var(--header-border));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+    .transition-control > div:first-child {
+        font-weight: 600;
+        color: rgb(var(--text-r), var(--text-g), var(--text-b));
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+.transition-slider {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: rgb(var(--slider-handle));
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: left 0.15s ease;
+    border: 2px solid rgb(80, 80, 80);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.transition-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+    font-size: 13px;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+    .transition-labels span {
+        color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    }
+
+#transition-value {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    background: rgba(var(--bg-r), var(--bg-g), var(--bg-b), 0.7);
+    padding: 5px 12px;
+    border-radius: 15px;
+    border: 1px solid rgb(var(--text-r), var(--text-g), var(--text-b));
+}
+
+h1 {
+    text-align: center;
+    margin: 25px 0 30px 0;
+    font-size: 2.2rem;
+    color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    font-weight: 700;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: rgba(var(--header-bg), 0.5);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(var(--header-border));
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: rgb(var(--text-r), var(--text-g), var(--text-b));
+    font-size: 14px;
+}
+
+input[type="number"] {
+    font-size: 16px;
+    padding: 14px;
+    width: 100%;
+    margin-bottom: 18px;
+    border: 2px solid rgb(var(--input-border));
+    border-radius: 10px;
+    background: rgb(var(--input-bg));
+    color: rgb(var(--input-text));
+    transition: all 0.2s ease;
+    font-weight: 500;
+    transition: background-color var(--transition-time), color var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
+}
+
+    input[type="number"]:focus {
+        outline: none;
+        border-color: rgb(80, 80, 80);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="number"]::placeholder {
+        color: rgba(var(--input-text), 0.5);
+        transition: color var(--transition-time);
+    }
+
+#power {
+    margin-top: 20px;
+    font-weight: bold;
+    padding: 18px;
+    border: 2px solid rgb(var(--power-border));
+    border-radius: 12px;
+    background-color: rgb(var(--power-bg));
+    text-align: center;
+    font-size: 1.6rem;
+    color: rgb(var(--power-text)); /*rgb(var(--text-r), var(--text-g), var(--text-b))*/
+    font-weight: 700;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    #header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .header-title {
+        font-size: 1.1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin: 20px 0;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    .theme-controls {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container, .transition-slider-container {
+        width: 200px;
+        height: 30px;
+    }
+
+    .slider, .transition-slider {
+        width: 24px;
+        height: 24px;
+    }
+
+    .labels, .transition-labels {
+        width: 200px;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #power {
+        font-size: 1.4rem;
+        padding: 15px;
+    }
+
+    input[type="number"] {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+/* Микро-анимации для плавности */
+/* #switch-background, .slider, .transition-slider, input[type="number"], #power {
+            transition: all 0.2s ease;
+        }*/
+
+/* Состояние для темной темы */
+/* body.dark {
+            --bg-r: 34;
+            --bg-g: 34;
+            --bg-b: 34;
+            --text-r: 240;
+            --text-g: 240;
+            --text-b: 240;
+            --input-bg: 60, 60, 60;
+            --input-text: 240, 240, 240;
+            --input-border: 180, 180, 180;
+            --power-bg: 50, 50, 50;
+            --power-border: 150, 150, 150;
+            --slider-bg: 100, 100, 100;
+            --slider-handle: 200, 200, 200;
+            --header-bg: 50, 50, 50;
+            --header-border: 100, 100, 100;
+        }*/
