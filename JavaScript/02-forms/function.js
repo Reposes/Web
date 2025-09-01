@@ -5,12 +5,12 @@ function Power() {
 	document.getElementById("power").innerHTML = base ** exponent;
 }
 
+document.addEventListener("mousemove", GetMouseCoords);
 function GetMouseCoords(event) {
 	let x = event.clientX;
 	let y = event.clientY;
 	document.getElementById("mouse").innerHTML = `X = ${x}, Y = ${y}`;
 }
-document.addEventListener("mousemove", GetMouseCoords);
 
 function SwitchBackground() {
 	let switchBackground = document.getElementById('switch-background');
@@ -29,3 +29,12 @@ function SwitchBackground() {
 	document.getElementById('switch-background').style.transition = `background-image ${delay}s`;
 	document.body.className = document.body.className === "light" ? "dark" : "light";
 }
+function UploadPhoto() {
+	let image = document.getElementById('photo');
+	let students_photo = document.getElementById('students-photo');
+	let filename = students_photo.value.split('\\');
+	filename = filename[filename.length-1];
+	image.src = filename;
+	alert(filename);
+}
+

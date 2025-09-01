@@ -11,20 +11,13 @@ body {
     justify-content: space-between;
 }
 
-input/*[type=number]*/, option
-{
-    font-size: 24px;
-}
+
 #switch-background {
     width: 32px;
     height: 32px;
     background-size: cover; /*32px 32px;*/
-    cursor: pointer;
+    /*cursor: pointer;*/
     /*background-image: url("img/moon.png");*/
-}
-.dark #switch-background /*img[src='img/sun.png']*/ {
-    filter: brightness(0) invert(1);
-    background-image: url("img/sun.png");
 }
 .light 
 {
@@ -42,6 +35,10 @@ input/*[type=number]*/, option
     color: #D8D8D8;
 }
 
+.dark #switch-background /*img[src='img/sun.png']*/ {
+    filter: brightness(0) invert(1);
+    background-image: url("img/sun.png");
+}
 /*-------------------------------------------------------------------*/
 form
 {
@@ -49,18 +46,23 @@ form
     border-radius:10px;
     margin:5%;
     padding: 5%;
-    box-shadow: 0px 0px 10px 10px grey;
+    box-shadow: 0px 0px 15px 15px grey;
 }
 .pair
 {
     /*border:  solid 1px;*/
-    width:48%;
+    width:50%;
     display:flex;
     justify-content:space-between;
     margin: 5px;
     padding: 5px;
 }
-#power-form .pair
+input /*[type=number]*/, select
+{
+    font-size: 24px;
+   /* margin: 2%;*/
+}
+#power-form input
 {
     width:24%;
 }
@@ -73,5 +75,22 @@ input[type=checkbox], input[type=radio]
 fieldset
 {
     width: 46%;
-    margin: 5%;
+}
+#registration
+{
+    display:flex;
+
+}
+#upload-photo
+{
+    border: solid 1px;
+    width: 59vh;
+    height: 80vh;
+   
+}
+#upload-photo img
+{
+    border: solid 1px;
+    width: 38vh;
+    height: 58vh;
 }
