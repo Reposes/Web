@@ -11,13 +11,14 @@
     <div id="header">
         Header
         <span id="mouse"></span>
-        <div style="display:flex;justify-content:space-between;margin:0 2%">
-            <input type="number" id="delay" value="1" min="0" max="10" style="width:40%"/>
+        <div style="display:flex;align-items:center;gap:15px">
+            <input type="number" id="delay" value="1" min="0" max="10" style="width:80px" />
             <div id="switch-background" onclick="SwitchBackground()"></div>
         </div>
     </div>
     <h1>WebForms</h1>
-    <form action="header.php" method="post" id="power-form">
+    <form action="header.php" method="post" id="power-form" class="form-hidden">
+        <button type="button" class="close-btn" onclick="toggleForm('power-form')">×</button>
         <h3>Возведение числа в степень</h3>
         <div class="pair">
             <label for="base">Основание степени</label>
@@ -35,9 +36,11 @@
             <div>Степень</div>
             <div id="power"></div>
         </div>
-        
+
     </form>
-    <form action="handler.php" method="post">
+    <!--<button id="toggleButton" class="btn" onclick="toggleForm()">Возведение числа в степень</button>-->
+    <form action="handler.php" method="post" class="form-hidden" id="reg-form">
+        <button type="button" class="close-btn" onclick="toggleForm('reg-form')">×</button>
         <h3>Форма регистрации</h3>
         <div id="registration">
             <div>
@@ -78,11 +81,16 @@
                 </select>
             </div>
             <div id="upload-photo">
-                <img src="" alt="Students photo" title="Students photo" id="photo"/>
-                <input type="file" name="students-photo" id="students-photo" onchange="UploadPhoto()"/>
+                <img src="" alt="Students photo" title="Students photo" id="photo" />
+                <input type="file" name="students-photo" id="students-photo" accept="image/*" onchange="UploadPhoto()" />
             </div>
         </div>
     </form>
+    <!--<button class="btn" onclick="toggleFormReg()">Форма регистрации</button>-->
+    <div class="side-menu">
+        <button class="menu-btn" onclick="toggleForm('power-form')">Возведение в степень</button>
+        <button class="menu-btn" onclick="toggleForm('reg-form')">Зарегистрироваться</button>
+    </div>
     <script src="function.js">
 
     </script>
