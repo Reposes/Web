@@ -82,16 +82,16 @@ function toggleForm(formId) {
         const prevForm = document.getElementById(openForm);
         prevForm.classList.remove('form-visible');
         prevForm.classList.add('form-hidden');
-        //setTimeout(() => {
-        //    prevForm.style.display = 'none';
-        //}, 800);
+        setTimeout(() => {
+            prevForm.style.display = 'none';
+        }, 800);
     }
 
-    //form.style.display = 'block';
-    //setTimeout(() => {
+    form.style.display = 'block';
+    setTimeout(() => {
     form.classList.remove('form-hidden');
     form.classList.add('form-visible');
-    //}, 10);
+    }, 10);
     openForm = formId;
     // прокрутка к форме, если она слишком высокая
     if (form.scrollHeight > 500) {

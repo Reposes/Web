@@ -128,7 +128,7 @@ form {
     transform: scale(0.9);
     pointer-events: none;
     transition: all 0.8s ease;
-     display:none;
+    /* display:none;*/
 }
 
 .form-visible { /*pos 8*/
@@ -136,7 +136,7 @@ form {
     /*height: auto;*/
     transform: scale(1);
     pointer-events: all;
-    display: block;
+   /* display: block;*/
     transition: all 0.3s ease;
     z-index: 1100;
 }
