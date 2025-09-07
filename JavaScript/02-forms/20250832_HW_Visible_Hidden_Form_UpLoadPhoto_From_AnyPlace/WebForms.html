@@ -1,0 +1,100 @@
+﻿﻿
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>WebForms</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light">
+    <div id="header">
+        Header
+        <span id="mouse"></span>
+        <div style="display:flex;align-items:center;gap:15px">
+            <input type="number" id="delay" value="1" min="0" max="10" style="width:80px" />
+            <div id="switch-background" onclick="SwitchBackground()"></div>
+        </div>
+    </div>
+    <h1>WebForms</h1>
+    <div class="forms-container">
+        <form action="header.php" method="post" id="power-form" class="form-hidden">
+            <button type="button" class="close-btn" onclick="toggleForm('power-form')">×</button>
+            <h3>Возведение числа в степень</h3>
+            <div class="pair">
+                <label for="base">Основание степени</label>
+                <input type="number" min="0" id="base" onchange="Power()" />
+            </div>
+            <br />
+
+            <div class="pair">
+                <label for="exponent">Показатель степени</label>
+                <input type="number" id="exponent" onchange="Power()" />
+            </div>
+            <br />
+
+            <div class="pair">
+                <div>Степень</div>
+                <div id="power"></div>
+            </div>
+
+        </form>
+        <!--<button id="toggleButton" class="btn" onclick="toggleForm()">Возведение числа в степень</button>-->
+        <form action="handler.php" method="post" class="form-hidden" id="reg-form">
+            <button type="button" class="close-btn" onclick="toggleForm('reg-form')">×</button>
+            <h3>Форма регистрации</h3>
+            <div id="registration">
+                <div>
+                    <div class="pair">
+                        <label for="last_name">Фамилия:</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Введите Вашу фамилию" />
+                    </div>
+                    <div class="pair">
+                        <label for="first_name">Имя:</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Введите Ваше имя" />
+                    </div>
+                    <div class="pair">
+                        <label for="birth-date">Дата рождения:</label>
+                        <input type="date" name="birth-date" id="birth-date" />
+                    </div>
+
+                    <fieldset>
+                        <legend>Какие Вы знаете языки?</legend>
+                        <input type="checkbox" id="ru" /><label for="ru">Русский </label><br />
+                        <input type="checkbox" id="en" /><label for="en">English </label><br />
+                        <input type="checkbox" id="de" /><label for="de">Deutsche</label> <br />
+                        <input type="checkbox" id="it" /><label for="it">Italian </label><br />
+                        <input type="checkbox" id="sp" /><label for="sp">Espaniol</label> <br />
+                    </fieldset>
+                    <fieldset id="learning-form">
+                        <legend>Выберите форму обучения</legend>
+                        <input type="radio" name="learning-form" id="stacionar" /><label for="stacionar">Стационар</label>
+                        <input type="radio" name="learning-form" id="semistacionar" /><label for="semistacionar">Полустационар</label>
+                    </fieldset>
+
+                    <!--<h4>Выберите специальность</h4>-->
+                    <select>
+                        <option disabled selected="selected"> --- Выберите специальность --- </option>
+                        <!-- https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
+                        <option>РПО</option>
+                        <option>Сети</option>
+                        <option>Дизайн</option>
+                    </select>
+                </div>
+                <div id="upload-photo">
+                    <img src="" alt="Students photo" title="Students photo" id="photo" />
+                    <input type="file" name="students-photo" id="students-photo" accept="image/*" onchange="UploadPhoto()" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<button class="btn" onclick="toggleFormReg()">Форма регистрации</button>-->
+    <div class="side-menu">
+        <button class="menu-btn" onclick="toggleForm('power-form')">Возведение в степень</button>
+        <button class="menu-btn" onclick="toggleForm('reg-form')">Зарегистрироваться</button>
+    </div>
+    <script src="function.js">
+
+    </script>
+</body>
+</html>
