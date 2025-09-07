@@ -29,13 +29,16 @@ body {
     /* width: 32px;
     height: 32px;
     background-size: cover;*/
-    width: 60px;
-    height: 30px;
-    background-color: #bbb;
-    border-radius: 15px;
-    position: relative;
+    width: 40px;
+    height: 40px;
+    /*background-color: #bbb;*/
+    border: none;
+    /*position: relative;*/
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    /*transition: background-color 0.3s ease;*/
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     /*background-image: url("img/moon.png");*/
 }
 .light {
@@ -43,6 +46,7 @@ body {
     color: #323232;
 }
 .light #switch-background {
+   /* filter: brightness(1) invert(0);*/
     background-image: url("img/moon.png");
 }
 
@@ -54,12 +58,12 @@ body {
 .dark #switch-background {
     filter: brightness(0) invert(1);
     background-image: url("img/sun.png");
+  /*  background-color: #555;*/
 }
-body.dark #switch-background {
-    background-color: #007acc;
-}
+/*body.dark #switch-background {
+}*/
 
-#switch-background::before {
+/*#switch-background::before {
     content: '';
     position: absolute;
     width: 26px;
@@ -69,7 +73,7 @@ body.dark #switch-background {
     left: 2px;
     background-color: white;
     transition: transform 0.3s ease;
-}
+}*/
 
 body.dark #switch-background::before {
     transform: translateX(30px);
@@ -80,51 +84,71 @@ body.dark #header {
     box-shadow: 0px 0px 10px 10px #505553;
     transition: transform 0.3s ease;
 }
-
+.forms-container {
+    position: relative;
+    min-height: 500px;
+}
 form {
     /*background: white;*/
     border: solid 1px #ddd;
     border-radius: 10px;
-    margin:  /* 5%; */20px auto;
+    margin:  /*5%;*/  20px auto;
     padding: /*5%;*/ 20px;
     box-shadow: 0px 0px 15px 15px grey;
     max-width:  800px;
     position: relative;
-    z-index: 100;
+    /*z-index: 100;*/
     transition: all 0.3s ease;
     background-color: #ffffff;
+
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.8s ease;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
 }
 
 
 .form-hidden {  /*pos 7*/
     opacity: 0;
-    height: 0;
+    /*height: 0;
     overflow: hidden;
     padding: 0;
-    margin: 0;
+    margin: 0;*/
     transform: scale(0.9);
     pointer-events: none;
     transition: all 0.8s ease;
+   /* display:none;*/
 }
 
 .form-visible { /*pos 8*/
     opacity: 1;
-    height: auto;
+    /*height: auto;*/
     transform: scale(1);
    pointer-events: all;
-   display: block;
+   /*display: block;*/
     transition: all 0.3s ease;
     z-index:1100;
+}
+form.form-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+    z-index: 100;
 }
 
 .side-menu {
     position: fixed;
-    left: -195px; /* скрываем часть меню за границей */
+    left: -200px; /* скрываем часть меню за границей */
     top: 50%;
     transform: translateY(-50%) scaleX(0.9);
     padding: 25px 15px 25px 25px;
     /*transform-origin: left center;*/
-    background: linear-gradient(90deg, /*rgba(0, 0, 0, 0.3) rgba(0, 122, 204, 0.95) */ #505553 #3a485a  80%, /*rgba(0, 0, 0, 0.5) rgba(0, 122, 204, 0.7)*/ #313937 #464642 100%);
+    background: linear-gradient(90deg, #505553 70%, #808080 100%);
     /*padding: 25px 15px 25px 25px;*/
     border-radius: 0 20px 20px 0;
     z-index: 1000;
@@ -136,9 +160,11 @@ form {
 }
 body.dark .side-menu {
     background: linear-gradient(90deg, /*rgba(0, 0, 0, 0.9) */ #202712 70%, /*rgba(0, 0, 0, 0.7)*/ #101a05 100%);
+    box-shadow: 0px 0px 10px 10px #505553;
 }
-.side-menu:hover{
-    left: -10px;
+.side-menu:hover {
+    left: -15px;
+    /*box-shadow: 0px 0px 10px 10px #505553;*/
 }
 .menu-btn {
     padding: 12px 20px;

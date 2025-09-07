@@ -56,34 +56,85 @@ function UploadPhoto() {
 		reader.readAsDataURL(document.getElementById('students-photo').files[0]);
     }
 }
-
-// функция для переключения форм
+let srollPosition = 0;
 function toggleForm(formId) {
-	const form = document.getElementById(formId);
-	// если при открытии нажимаем на ту же форму, закрываем ее
-	if (openForm === formId) {
-		form.classList.remove('form-visible');
-		form.classList.add('form-hidden');
-		openForm = null;
-		return
-	}
-	// закрываем ранее открытыю форму, если такавая имеется
-	if (openForm) {
-		const prevForm = document.getElementById(openForm);
-		prevForm.classList.remove('form-visible');
-		prevForm.classList.add('form-hidden');
+    const form = document.getElementById(formId);
 
-	}
+    if (openForm === formId) {
+        // закрытие формы - возврат к сохраенной позиции
+        form.classList.remove('form-visible');
+        form.classList.add('form-hidden');
+        window.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+        //setTimeout(() => {
+        //    form.style.display = 'none';
+        //}, 800); // соответствует duration анимации
+        openForm = null;
+        return;
+    }
+    // сохранение текущей позиции только при первом открытии любой формы
+    if (!openForm) {
+        scrollPosition = window.scrollY;
+    }
 
-	//  открываем новую форму
-	form.classList.remove('form-hidden');
-	form.classList.add('form-visible');
-	openForm = formId;
+    if (openForm) {
+        const prevForm = document.getElementById(openForm);
+        prevForm.classList.remove('form-visible');
+        prevForm.classList.add('form-hidden');
+        //setTimeout(() => {
+        //    prevForm.style.display = 'none';
+        //}, 800);
+    }
+
+    //form.style.display = 'block';
+    //setTimeout(() => {
+        form.classList.remove('form-hidden');
+        form.classList.add('form-visible');
+    //}, 10);
+    openForm = formId;
+    // прокрутка к форме, если она слишком высокая
+    if (form.scrollHeight > 500) {
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+// функция для переключения форм
+//function toggleForm(formId) {
+//	const form = document.getElementById(formId);
+//	// если при открытии нажимаем на ту же форму, закрываем ее
+//	if (openForm === formId) {
+//		form.classList.remove('form-visible');
+//		form.classList.add('form-hidden');
+//		setTimeout(() => {
+//			form.style.display = 'none';
+//		}, 800); // соответствует duration анимации
+
+//		openForm = null;
+//		return
+//	}
+//	// закрываем ранее открытыю форму, если такавая имеется
+//	if (openForm) {
+//		const prevForm = document.getElementById(openForm);
+//		prevForm.classList.remove('form-visible');
+//		prevForm.classList.add('form-hidden');
+//		setTimeout(() => {
+//			form.style.display = 'none';
+//		}, 800);
+
+//	}
+
+//	//  открываем новую форму
+//	form.styl.display = 'block';
+//	setTimeout(() => {
+//		form.classList.remove('form-hidden');
+//		form.classList.add('form-visible');
+//	}, 10);
+//	openForm = formId;
+
 //function toggleForm(formType) {
 //    const powerForm = document.getElementById('power-form');
 //    const regForm = document.getElementById('reg-form');
 
 //    if (formType === 'power-form') {
+//        // закрытие формы - возврат к сохраненной позиции
 //        powerForm.classList.toggle('form-hidden');
 //        powerForm.classList.toggle('form-visible');
 //        // Закрываем другую форму если открыта
@@ -98,11 +149,12 @@ function toggleForm(formId) {
 //        if (!powerForm.classList.contains('form-hidden')) {
 //            powerForm.classList.add('form-hidden');
 //            powerForm.classList.remove('form-visible');
+//	regForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
 //        }
 //    }
 
-	regForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+//}
+// обработчик нажатия вне формы, приводит к закрытию форм
 document.addEventListener('click', function (event) {
 	if (!openForm) return;
 
@@ -112,6 +164,7 @@ document.addEventListener('click', function (event) {
 	if (!form.contains(event.target) && !sideMenu.contains(event.target)) {
 		form.classList.remove('form-visible');
 		form.classList.add('form-hidden');
-		openForm = null;
+        openForm = null;
+        window.scrollTo({ top: srollPosition, behavior: 'smooth' }); 
 	}
 });
