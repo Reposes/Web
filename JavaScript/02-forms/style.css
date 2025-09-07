@@ -86,3 +86,10 @@ fieldset {
         width: 38vh;
         height: 58vh;
     }
+/*                              Time                                     */
+#clock{
+    text-align: center;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+   /* padding: 20px;*/
+}
