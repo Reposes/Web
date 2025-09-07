@@ -57,6 +57,7 @@ function UploadPhoto() {
     }
 }
 let srollPosition = 0;
+// функци€ дл€ переключени€ форм
 function toggleForm(formId) {
     const form = document.getElementById(formId);
 
@@ -96,64 +97,6 @@ function toggleForm(formId) {
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
-// функци€ дл€ переключени€ форм
-//function toggleForm(formId) {
-//	const form = document.getElementById(formId);
-//	// если при открытии нажимаем на ту же форму, закрываем ее
-//	if (openForm === formId) {
-//		form.classList.remove('form-visible');
-//		form.classList.add('form-hidden');
-//		setTimeout(() => {
-//			form.style.display = 'none';
-//		}, 800); // соответствует duration анимации
-
-//		openForm = null;
-//		return
-//	}
-//	// закрываем ранее открытыю форму, если такава€ имеетс€
-//	if (openForm) {
-//		const prevForm = document.getElementById(openForm);
-//		prevForm.classList.remove('form-visible');
-//		prevForm.classList.add('form-hidden');
-//		setTimeout(() => {
-//			form.style.display = 'none';
-//		}, 800);
-
-//	}
-
-//	//  открываем новую форму
-//	form.styl.display = 'block';
-//	setTimeout(() => {
-//		form.classList.remove('form-hidden');
-//		form.classList.add('form-visible');
-//	}, 10);
-//	openForm = formId;
-
-//function toggleForm(formType) {
-//    const powerForm = document.getElementById('power-form');
-//    const regForm = document.getElementById('reg-form');
-
-//    if (formType === 'power-form') {
-//        // закрытие формы - возврат к сохраненной позиции
-//        powerForm.classList.toggle('form-hidden');
-//        powerForm.classList.toggle('form-visible');
-//        // «акрываем другую форму если открыта
-//        if (!regForm.classList.contains('form-hidden')) {
-//            regForm.classList.add('form-hidden');
-//            regForm.classList.remove('form-visible');
-//        }
-//    } else if (formType === 'reg-form') {
-//        regForm.classList.toggle('form-hidden');
-//        regForm.classList.toggle('form-visible');
-//        // «акрываем другую форму если открыта
-//        if (!powerForm.classList.contains('form-hidden')) {
-//            powerForm.classList.add('form-hidden');
-//            powerForm.classList.remove('form-visible');
-//	regForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//        }
-//    }
-
-//}
 // обработчик нажати€ вне формы, приводит к закрытию форм
 document.addEventListener('click', function (event) {
 	if (!openForm) return;
