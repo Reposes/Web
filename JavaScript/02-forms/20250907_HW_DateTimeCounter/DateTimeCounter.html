@@ -1,0 +1,28 @@
+﻿<p>До Нового 2025 года осталось: <span id="timer"></span></p>
+
+<script>
+  const endDate = new Date('2026-01-01T00:00:00').getTime();
+  const timerElement = document.getElementById('timer');
+
+  function updateCountdown() {
+    const now = Date.now();
+    const distance = endDate - now;
+
+    if (distance < 0) {
+      clearInterval(countdownTimer);
+      timerElement.innerHTML = 'С Новым годом!';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    timerElement.innerHTML = `${days}д ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // Запускаем отсчет
+  updateCountdown();
+  const countdownTimer = setInterval(updateCountdown, 1000);
+</script>
