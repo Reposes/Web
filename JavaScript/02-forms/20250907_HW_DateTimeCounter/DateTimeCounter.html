@@ -1,12 +1,61 @@
-﻿<p>До Нового 2025 года осталось: <span id="timer"></span></p>
+﻿<p>До Нового 2025 года осталось: <span id="timer"></span></p> 
+<p>Сейчас: <span id="month"></span> месяц и <span id="nowDay"></span> день</p>
+<p>Осталось до нового года: <span id="years"></span> лет <span id="leftMonths"> </span> месяца и <span id="leftDays"></span> дней</p>
+<p>Считаем до <span id="target-year"></span> года</p>
+<!--<p>Осталось до целевого года <span id="years"></span></p>-->
+
 
 <script>
-  const endDate = new Date('2026-01-01T00:00:00').getTime();
-  const timerElement = document.getElementById('timer');
+  const endDate = new Date('2029-01-01T00:00:00').getTime();
+    const timerElement = document.getElementById('timer');
+    const targetTime = new Date(endDate);
+    const targetYear = new Date(endDate).getFullYear();
+    let nowTime = new Date();
+    let minutes = [];
+    let hours = [];
+    let days = [];
+    let months = [];/* [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];*/
+    let years = [];
+
+    //for (let h = nowTime.getHours(); h < targetDate.getHours(); h++) {
+    //    if (true) {
+    //    for (let m = nowTime.getMinutes(); m < targetDate.getMinutes(); m++) {
+    //            minutes.push(i);
+    //        }
+    //    }
+    //}
+
+   
+    for (let h = nowTime.getHours(); h < targetTime.getHours(); h++) {
+        for ( let d = nowTime.getDate(); d < targetTime.getDate(); d++) {
+            for (let m = nowTime.getMonth(); m < targetTime.getMonth(); m++) {
+                for (y = nowTime.getFullYear() + 1; y < targetTime.getFullYear(); y++) {
+                    years.push(y);
+                }
+                months.push(m);
+            }
+            days.push(d);
+        }
+    }
+
+    for (i = 1; i < new Date(targetDay).getDate(); i++) {
+        days.push(i);
+    }
+    let i = 0;
 
   function updateCountdown() {
-    const now = Date.now();
-    const distance = endDate - now;
+      const now = Date.now();
+      let nowTime = new Date();
+      let nowMonth = nowTime.getMonth();
+      let nowDay = nowTime.getDate();
+
+      const distance = endDate - now;
+      document.getElementById("target-year").innerHTML = targetYear;
+      document.getElementById("years").innerHTML = years;
+      document.getElementById("month").innerHTML = nowMonth;
+      document.getElementById("leftMonths").innerHTML = 11 - nowMonth;
+      document.getElementById("nowDay").innerHTML = nowDay;
+      document.getElementById("leftDays").innerHTML = month[nowMonth] - nowDay;
 
     if (distance < 0) {
       clearInterval(countdownTimer);
@@ -14,6 +63,7 @@
       return;
     }
 
+     
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
