@@ -1,0 +1,134 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: Roboto Condensed;
+    font-size: 32px;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#switch-background {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    /*background-image: url("img/moon.png");*/
+}
+
+.light {
+    background: #D8D8D8;
+    color: #323232;
+}
+
+    .light #switch-background {
+        background-image: url("img/moon.png");
+    }
+
+.dark {
+    background: #323232;
+    color: #D8D8D8;
+}
+
+    .dark #switch-background {
+        filter: brightness(0) invert(1);
+        background-image: url("img/sun.png");
+    }
+
+/*------------------------------------------------------*/
+form {
+    border: solid 1px;
+    border-radius: 10px;
+    margin: 5%;
+    padding: 5%;
+    box-shadow: 0px 0px 15px 15px grey;
+}
+
+.pair {
+    /*border:solid 1px;*/
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+}
+
+input /*[type=number]*/, select {
+    font-size: 24px;
+}
+
+#power-form input {
+    width: 24%;
+}
+
+input[type=checkbox], input[type=radio] {
+    width: 24px;
+    height: 24px;
+}
+
+fieldset {
+    width: 46%;
+}
+
+#registration {
+    display: flex;
+}
+
+#upload-photo {
+    border: solid 1px;
+    width: 59vh;
+    height: 80vh;
+}
+
+    #upload-photo img {
+        border: solid 1px;
+        width: 38vh;
+        height: 58vh;
+    }
+/*                              Time                                     */
+#clock{
+    text-align: center;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+   /* padding: 20px;*/
+}
+/*                         CountdownTimer                                */
+
+#display
+{
+    border: solid 1px;
+    font-size: 32px;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    padding: 10px;
+}
+.time-block
+{
+    border: solid 3px;
+    border-radius: 10px;
+
+
+}
+.time-unit
+{
+    font-size: 48px;
+    color: #ffffff; /*rgb(200, 0,0);*/
+    width: 148px;
+    height: 148px;
+    background-color: Highlight;
+
+}
+.time-marker
+{
+    border: solid 1px;
+    background-color: rgb(200, 0, 0);
+    color: aliceblue;
+}
+.time-unit, .time-marker
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>WebForms</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light">
+    <div id="header">
+        Header
+        <span id="mouse"></span>
+        <div style="display:flex;justify-content:space-between;margin:0 1%;">
+            <input type="number" id="delay" value="1" min="0" max="10" style="width:40%;" />
+            <div id="switch-background" onclick="SwitchBackground()"></div>
+        </div>
+        <!--<img src="img/moon.png">-->
+    </div>
+    <h1>WebForms</h1>
+    <details>
+        <summary>Степень</summary>
+        <form action="handler.php" method="post" id="power-form">
+            <h3>Возведение числа в степень</h3>
+            <div class="pair">
+                <label for="base">Основание степени</label>
+                <input type="number" min="0" id="base" onchange="Power()">
+            </div>
+            <br>
+
+            <div class="pair">
+                <label for="exponent">Показатель степени</label>
+                <input type="number" id="exponent" onchange="Power()">
+            </div>
+            <br>
+
+            <div class="pair">
+                <div>Степень:</div>
+                <div id="power"></div>
+            </div>
+        </form>
+    </details>
+    <details>
+        <summary>Форма регистрации</summary>
+        <form action="handler.php" method="post">
+            <h3>Форма регистрации</h3>
+            <div id="registration">
+                <div>
+                    <div class="pair">
+                        <label for="last_name">Фамилия:</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Введите Вашу фамилию" />
+                    </div>
+                    <div class="pair">
+                        <label for="first_name">Имя:</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Введите Ваше имя">
+                    </div>
+                    <div class="pair">
+                        <label for="birth-date">Дата рождения:</label>
+                        <input type="date" name="birth-date" id="birth-date">
+                    </div>
+
+                    <fieldset>
+                        <legend>Какие Вы знаете языки?</legend>
+                        <input type="checkbox" id="ru"><label for="ru">Русский	</label><br>
+                        <input type="checkbox" id="en"><label for="en">English	</label><br>
+                        <input type="checkbox" id="de"><label for="de">Deutsche	</label><br>
+                        <input type="checkbox" id="it"><label for="it">Italian	</label><br>
+                        <input type="checkbox" id="sp"><label for="sp">Espaniol	</label><br>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Выберите форму обучения</legend>
+                        <input type="radio" name="learning-form" id="stacionar"><label for="stacionar">Стационар</label>
+                        <input type="radio" name="learning-form" id="semistacionar"><label for="semistacionar">Полустационар</label>
+                    </fieldset>
+                    <!--<h4>Выберите специальность</h4>-->
+                    <select>
+                        <option disabled selected="selected"> --- Выберите специальность --- </option>
+                        <!-- https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element -->
+                        <option>РПО</option>
+                        <option>Сети</option>
+                        <option>Дизайн</option>
+                    </select>
+                </div>
+                <div id="upload-photo">
+                    <img src="" alt="Students photo" title="Students photo" id="photo">
+                    <input type="file" name="students-photo" id="students-photo" onchange="setImage()">
+                </div>
+            </div>
+        </form>
+    </details>
+    <!------------------------------- Timer -------------------------------------------->
+    <div id="full-time">
+
+    </div>
+    <div id="clock">
+        <h3>Clock</h3>
+        <div id="time-of-day">
+            <span id="hours"></span>:
+            <span id="minutes"></span>:
+            <span id="seconds"></span>
+
+        </div>
+        <div id="current-date">
+            <span id="years"></span>.
+            <span id="month"></span>.
+            <span id="day"></span>
+
+        </div>
+        <div id="weekday">
+
+        </div>
+        <div>
+            <input type="checkbox" name="show-date" id="show-date"/><label for="show-date">Показать дату</label>
+            <input type="checkbox" name="show-weekday" id="show-weekday"/><label for="show-weekday">Показать день недели</label>
+        </div>
+    </div>
+    <!-----------------------------   Countdown timer    ---------------------------------->
+
+    <div id="countdown-timer">
+        <div id="countdown-timer-controls">
+            <h2>Countdown timer</h2>
+            <input type="date" id="target-date" /> <!--name="target-date" value=""-->
+            <input type="time" id="target-time" /> <!--name="target-time" value=""-->
+            <input type="button" id="btn-start" name="btn-start" value="Start" />
+        </div>
+
+        <div id="debug">
+            <!--<div></div>-->
+            <div id="target-date-value"></div>
+            <div id="target-time-value"></div>
+        </div>
+
+        <div id="display">
+            <div class="time-block">
+                <div id="years-unit" class="time-unit"></div>
+                <div id="years-marker" class="time-marker">Years</div>
+            </div>
+            <div class="time-block">
+                <div id="months-unit" class="time-unit"></div>
+                <div id="months-marker" class="time-marker">Months</div>
+            </div>
+            <div class="time-block">
+                <div id="days-unit" class="time-unit"></div>
+                <div id="days-marker" class="time-marker">Days</div>
+            </div>
+            <div class="time-block">
+                <div id="hours-unit" class="time-unit"></div>
+                <div id="hours-marker" class="time-marker">Hours</div>
+            </div>
+
+            <div class="time-block">
+                <div id="minutes-unit" class="time-unit"></div>
+                <div id="minutes-marker" class="time-marker">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div id="seconds-unit" class="time-unit"></div>
+                <div id="seconds-marker" class="time-marker">Seconds</div>
+            </div>
+
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------->
+    <script src="functions.js">
+
+    </script>
+</body>
+</html>
