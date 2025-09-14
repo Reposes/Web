@@ -11,7 +11,8 @@ function GetMouseCoords(event) {
     document.getElementById("mouse").innerHTML = `X = ${x}, Y = ${y}`;
 }
 function SwitchBackground() {
-    let switchBackground = document.getElementById("switch-background");
+    /*let switchBackground = document.getElementById("switch-background");*//////
+
     //if(switchBackground.style.backgroundImage === 'url("img/moon.png")')
     //{
     //    switchBackground.style.backgroundImage = 'url("img/sun.png")';
@@ -50,7 +51,7 @@ function setImage() {
 //////////////////          Timer                   /////////////////
 
 /*const endDate = new Date*//*('2026-01-01T00:00:00'); //*//*(targetDateControl + targetTimeControl);*/
-let endDate;
+//let endDate;
 let countdownTimer = null;
 let countDaysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 document.body.onload = function tick_timer()
@@ -105,64 +106,65 @@ document.getElementById("btn-start").onclick = function startCountdownTimer() {
         document.getElementById("target-time-value").innerHTML = "Weiting....";
     }
 }
-function tickCountdown() {
-    if (!document.getElementById("target-time").disabled) return;
 
-    let now = new Date();
+function tickCountdown() {
     let targetDateControl = document.getElementById("target-date");
     let targetTimeControl = document.getElementById("target-time");
 
-    if (!targetDateControl.value || !targetTimeControl.value) {
+    if (!(targetDateControl.value || targetTimeControl.value )) {
         console.log("Дата и время не выбраны");
         return;
     }
-    
-    //let targetDate = targetDateControl.valueAsDate;
-    //let targetTime = targetTimeControl.valueAsDate;
 
-    let dateString = targetDateControl.value;
-    let timeString = targetTimeControl.value;
+    // Создаем дату из значения input[type=datetime-local]
+    // Это автоматически учитывает локальный часовой пояс пользователя
+    endDate = new Date(targetDateControl.value + 'T' + targetTimeControl.value );
 
-    // создаем объект Date из строки в формате YYYY-MM-DDTHH:mm
-    // автоматически учитывает локальный часовой пояс пользователя
-    endDate = new Date(dateString + 'T' + timeString);
-
-    
-
-    //Выравнивание часового пояса:
-    /*console.log(targetDate.getTimezoneOffset());*/
-    //targetDate.setHours(targetDate.getHours() - targetDate.getTimezoneOffset() / 60); // getTimezoneOffset() возвращает значение в минутах, поэтому делим на 60
-    //targetTime.setHours(targetTime.getHours() - targetTime.getTimezoneOffset() / 60);
-
-    // сводим даты и время в одну переменную:
-    //targetTime.setFullYear(targetDate.getFullYear());
-    //targetTime.setMonth(targetDate.getMonth());
-    //targetTime.setDate(targetDate.getDate());
-
+    // Проверяем, что дата корректна
     if (isNaN(endDate.getTime())) {
-        consol.log("Некорректная дата")ж
+        console.log("Некорректная дата");
         return;
     }
-    //endDate = new Date(
-    //    targetDate.getFullYear(),
-    //    targetDate.getMonth(),
-    //    targetDate.getDate(),
-    //    targetTime.getHours(),
-    //    targetTime.getMinutes(),
-    //    targetTime.getSeconds(),
-    //    0
-    //);
-    // Debug target datetime:
-    document.getElementById("target-date-value").innerHTML = endDate.toString(); // targetDate;
-    document.getElementById("target-time-value").innerHTML = endDate.toString(); // targetTime;
 
-
-    fillArrays();
+    // Debug target datetime
+    document.getElementById("target-date-value").innerHTML = endDate.toString();
+    document.getElementById("target-time-value").innerHTML = endDate.toTimeString();
 }
 
-function fillArrays() {
-    const now = new Date();
+function updateCountdown() {
+    if (!endDate) return;
 
+    const now = new Date();
+    const distance = endDate - now;
+
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.getElementById('display').innerHTML = 'Время вышло!';
+        document.getElementById("btn-start").value = "Start";
+        document.getElementById("target-date").disabled = false;
+        document.getElementById("target-time").disabled = false;
+        return;
+    }
+
+    const timeLeft = calculateTimeLeft(now, endDate);
+
+    function toggleBlock(id, value) {
+        const block = document.getElementById(id).parentElement;
+        document.getElementById(id).textContent = value;
+        if (id !== 'seconds-unit') {
+            block.style.display = value === 0 ? "none" : "block";
+        }
+    }
+
+    toggleBlock('years-unit', timeLeft.years);
+    toggleBlock('months-unit', timeLeft.months);
+    toggleBlock('days-unit', timeLeft.days);
+    toggleBlock('hours-unit', timeLeft.hours);
+    toggleBlock('minutes-unit', timeLeft.minutes);
+    toggleBlock('seconds-unit', timeLeft.seconds);
+}
+
+function calculateTimeLeft(now, endDate) {
     let years = endDate.getFullYear() - now.getFullYear();
     let months = endDate.getMonth() - now.getMonth();
     let days = endDate.getDate() - now.getDate();
@@ -170,7 +172,7 @@ function fillArrays() {
     let minutes = endDate.getMinutes() - now.getMinutes();
     let seconds = endDate.getSeconds() - now.getSeconds();
 
-    // --- kорректировки (если получилась "отрицательная часть", то занимаем у старшей единицы) ---
+    // Корректировки времени
     if (seconds < 0) {
         seconds += 60;
         minutes--;
@@ -184,10 +186,11 @@ function fillArrays() {
         days--;
     }
     if (days < 0) {
-        //// берем количество дней в предыдущем месяце
+        //// Берем количество дней в предыдущем месяце
         //const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
         //days += prevMonth;
         //months--;
+
         let monthIndex = now.getMonth() - 1;
         let year = now.getFullYear();
 
@@ -205,7 +208,6 @@ function fillArrays() {
         days += daysInMonths[monthIndex];
         months--;
     }
-
     if (months < 0) {
         months += 12;
         years--;
@@ -213,51 +215,174 @@ function fillArrays() {
 
     return { years, months, days, hours, minutes, seconds };
 }
-function updateCountdown() {
-    if (!endDate) return;
-
-    const now = new Date();//.getTime();
-    const distance = endDate - now;
-
-    if (distance < 0) {
-        clearInterval(countdownTimer);
-        document.getElementById('timer').innerHTML = 'Время вышло';
-        document.getElementById("btn-start").value = "Start";
-        document.getElementById("target-date").disabled = false;
-        document.getElementById("target-time").disabled = false;
-        return;
-    }
-
-    const timeLeft = fillArrays();
-
-    function toggleBlock(id, value) {
-        const block = document.getElementById(id).parentElement;
-        document.getElementById(id).textContent = value;
-        if (id != 'seconds-unit') { 
-            block.style.display = value === 0 ? "none" : "block";
-        }
-    }
-
-    //document.getElementById('years-unit').textContent = timeLeft.years;
-    //document.getElementById('months-unit').textContent = timeLeft.months;
-    //document.getElementById('days-unit').textContent = timeLeft.days;
-    //document.getElementById('hours-unit').textContent = timeLeft.hours;
-    //document.getElementById('minutes-unit').textContent = timeLeft.minutes;
-    //document.getElementById('seconds-unit').textContent = timeLeft.seconds;
-
-    toggleBlock('years-unit', timeLeft.years);
-    toggleBlock('months-unit', timeLeft.months);
-    toggleBlock('days-unit', timeLeft.days);
-    toggleBlock('hours-unit', timeLeft.hours);
-    toggleBlock('minutes-unit', timeLeft.minutes);
-    toggleBlock('seconds-unit', timeLeft.seconds);
-
-    document.getElementById('timer').textContent =
-        `${timeLeft.days}д ${timeLeft.hours}ч ${timeLeft.minutes}м ${timeLeft.seconds}с`;
-}
 
 function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
-//const countdownTimer = setInterval(updateCountdown, 1000);
-///*updateCountdown();*/
+
+
+
+
+
+
+
+
+
+
+
+//function tickCountdown() {
+//    if (!document.getElementById("target-time").disabled) return;
+
+//    let now = new Date();
+//    let targetDateControl = document.getElementById("target-date");
+//    let targetTimeControl = document.getElementById("target-time");
+
+//    if (!targetDateControl.value || !targetTimeControl.value) {
+//        console.log("Дата и время не выбраны");
+//        return;
+//    }
+    
+//    //let targetDate = targetDateControl.valueAsDate;
+//    //let targetTime = targetTimeControl.valueAsDate;
+
+//    let dateString = targetDateControl.value;
+//    let timeString = targetTimeControl.value;
+
+//    // создаем объект Date из строки в формате YYYY-MM-DDTHH:mm
+//    // автоматически учитывает локальный часовой пояс пользователя
+//    endDate = new Date(dateString + 'T' + timeString);
+
+    
+
+//    //Выравнивание часового пояса:
+//    /*console.log(targetDate.getTimezoneOffset());*/
+//    //targetDate.setHours(targetDate.getHours() - targetDate.getTimezoneOffset() / 60); // getTimezoneOffset() возвращает значение в минутах, поэтому делим на 60
+//    //targetTime.setHours(targetTime.getHours() - targetTime.getTimezoneOffset() / 60);
+
+//    // сводим даты и время в одну переменную:
+//    //targetTime.setFullYear(targetDate.getFullYear());
+//    //targetTime.setMonth(targetDate.getMonth());
+//    //targetTime.setDate(targetDate.getDate());
+
+//    if (isNaN(endDate.getTime())) {
+//        consol.log("Некорректная дата")ж
+//        return;
+//    }
+//    //endDate = new Date(
+//    //    targetDate.getFullYear(),
+//    //    targetDate.getMonth(),
+//    //    targetDate.getDate(),
+//    //    targetTime.getHours(),
+//    //    targetTime.getMinutes(),
+//    //    targetTime.getSeconds(),
+//    //    0
+//    //);
+//    // Debug target datetime:
+//    document.getElementById("target-date-value").innerHTML = endDate.toString(); // targetDate;
+//    document.getElementById("target-time-value").innerHTML = endDate.toString(); // targetTime;
+
+
+//    fillArrays();
+//}
+
+//function fillArrays() {
+//    const now = new Date();
+
+//    let years = endDate.getFullYear() - now.getFullYear();
+//    let months = endDate.getMonth() - now.getMonth();
+//    let days = endDate.getDate() - now.getDate();
+//    let hours = endDate.getHours() - now.getHours();
+//    let minutes = endDate.getMinutes() - now.getMinutes();
+//    let seconds = endDate.getSeconds() - now.getSeconds();
+
+//    // --- kорректировки (если получилась "отрицательная часть", то занимаем у старшей единицы) ---
+//    if (seconds < 0) {
+//        seconds += 60;
+//        minutes--;
+//    }
+//    if (minutes < 0) {
+//        minutes += 60;
+//        hours--;
+//    }
+//    if (hours < 0) {
+//        hours += 24;
+//        days--;
+//    }
+//    if (days < 0) {
+//        //// берем количество дней в предыдущем месяце
+//        //const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+//        //days += prevMonth;
+//        //months--;
+//        let monthIndex = now.getMonth() - 1;
+//        let year = now.getFullYear();
+
+//        if (monthIndex < 0) {
+//            monthIndex = 11;
+//            year--;
+//        }
+//        // копия массива
+//        let daysInMonths = countDaysMonths;
+//        // учитываем високосный год
+//        if (isLeapYear(year)) {
+//            daysInMonths[1] = 29;
+//        }
+
+//        days += daysInMonths[monthIndex];
+//        months--;
+//    }
+
+//    if (months < 0) {
+//        months += 12;
+//        years--;
+//    }
+
+//    return { years, months, days, hours, minutes, seconds };
+//}
+//function updateCountdown() {
+//    if (!endDate) return;
+
+//    const now = new Date();//.getTime();
+//    const distance = endDate - now;
+
+//    if (distance < 0) {
+//        clearInterval(countdownTimer);
+//        document.getElementById('timer').innerHTML = 'Время вышло';
+//        document.getElementById("btn-start").value = "Start";
+//        document.getElementById("target-date").disabled = false;
+//        document.getElementById("target-time").disabled = false;
+//        return;
+//    }
+
+//    const timeLeft = fillArrays();
+
+//    function toggleBlock(id, value) {
+//        const block = document.getElementById(id).parentElement;
+//        document.getElementById(id).textContent = value;
+//        if (id != 'seconds-unit') { 
+//            block.style.display = value === 0 ? "none" : "block";
+//        }
+//    }
+
+//    //document.getElementById('years-unit').textContent = timeLeft.years;
+//    //document.getElementById('months-unit').textContent = timeLeft.months;
+//    //document.getElementById('days-unit').textContent = timeLeft.days;
+//    //document.getElementById('hours-unit').textContent = timeLeft.hours;
+//    //document.getElementById('minutes-unit').textContent = timeLeft.minutes;
+//    //document.getElementById('seconds-unit').textContent = timeLeft.seconds;
+
+//    toggleBlock('years-unit', timeLeft.years);
+//    toggleBlock('months-unit', timeLeft.months);
+//    toggleBlock('days-unit', timeLeft.days);
+//    toggleBlock('hours-unit', timeLeft.hours);
+//    toggleBlock('minutes-unit', timeLeft.minutes);
+//    toggleBlock('seconds-unit', timeLeft.seconds);
+
+//    document.getElementById('timer').textContent =
+//        `${timeLeft.days}д ${timeLeft.hours}ч ${timeLeft.minutes}м ${timeLeft.seconds}с`;
+//}
+
+//function isLeapYear(year) {
+//    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+//}
+////const countdownTimer = setInterval(updateCountdown, 1000);
+/////*updateCountdown();*/
