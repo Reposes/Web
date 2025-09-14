@@ -216,7 +216,9 @@ function updateCountdown() {
     function toggleBlock(id, value) {
         const block = document.getElementById(id).parentElement;
         document.getElementById(id).textContent = value;
-        block.style.display = value === 0 ? "none" : "block";
+        if (id != 'seconds-unit') { 
+            block.style.display = value === 0 ? "none" : "block";
+        }
     }
 
     //document.getElementById('years-unit').textContent = timeLeft.years;
