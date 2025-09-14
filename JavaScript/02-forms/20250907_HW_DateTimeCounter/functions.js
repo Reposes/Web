@@ -115,9 +115,9 @@ function tickCountdown() {
     let targetTime = targetTimeControl.valueAsDate;
 
     //¬ыравнивание часового по€са:
-    //console.log(targetDate.getTimezoneOffset());
-    //targetDate.setHours(targetDate.getHours() + targetDate.getTimezoneOffset() / 60); // getTimezoneOffset() возвращает значение в минутах, поэтому делим на 60
-    //targetTime.setHours(targetTime.getHours() + targetTime.getTimezoneOffset() / 60);
+    console.log(targetDate.getTimezoneOffset());
+    targetDate.setHours(targetDate.getHours() + targetDate.getTimezoneOffset() / 60); // getTimezoneOffset() возвращает значение в минутах, поэтому делим на 60
+    targetTime.setHours(targetTime.getHours() + targetTime.getTimezoneOffset() / 60);
 
     if (!targetDate || !targetTime) {
         console.log("ƒата и врем€ не выбраны");
