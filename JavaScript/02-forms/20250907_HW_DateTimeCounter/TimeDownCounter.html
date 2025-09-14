@@ -1,0 +1,593 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebForms</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cbb;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #fff;
+            --border-color: #ddd;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-color: #ff6b6b;
+            --success-color: #4caf50;
+        }
+
+        .dark {
+            --primary-color: #6b8cbb;
+            --secondary-color: #4a6fa5;
+            --text-color: #f5f5f5;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --accent-color: #ff8e8e;
+            --success-color: #6bc46b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        #header {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #switch-background {
+            width: 60px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            #switch-background::before {
+                content: '';
+                position: absolute;
+                width: 26px;
+                height: 26px;
+                background-color: white;
+                border-radius: 50%;
+                top: 2px;
+                left: 2px;
+                transition: transform 0.3s;
+            }
+
+        .dark #switch-background::before {
+            transform: translateX(30px);
+        }
+
+        input[type="number"], input[type="text"], input[type="date"], input[type="time"], select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            width: 100%;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        details {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            list-style: none;
+            position: relative;
+        }
+
+            summary::-webkit-details-marker {
+                display: none;
+            }
+
+            summary::after {
+                content: '+';
+                position: absolute;
+                right: 15px;
+                transition: transform 0.3s;
+            }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        .pair {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+            .pair label {
+                flex: 1;
+                min-width: 150px;
+                margin-right: 15px;
+            }
+
+            .pair input, .pair div {
+                flex: 2;
+                min-width: 200px;
+            }
+
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        legend {
+            padding: 0 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        #registration {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+            #registration > div {
+                flex: 1;
+                min-width: 300px;
+            }
+
+        #upload-photo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #photo {
+            width: 150px;
+            height: 150px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            background-color: #eee;
+        }
+
+        #clock, #countdown-timer, #full-time {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #time-of-day, #current-date {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #weekday {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        #countdown-timer-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            #countdown-timer-controls h2 {
+                margin-right: auto;
+                width: 100%;
+            }
+
+        #btn-start {
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            #btn-start:hover {
+                background-color: var(--secondary-color);
+            }
+
+        #display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .time-block {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .time-unit {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            padding: 10px;
+            background-color: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        .time-marker {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        #mouse {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .pair {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                .pair label {
+                    margin-bottom: 5px;
+                    margin-right: 0;
+                }
+
+            #registration {
+                flex-direction: column;
+            }
+
+            #display {
+                justify-content: center;
+            }
+
+            .time-block {
+                min-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body class="light">
+    <div id="header">
+        Header
+        <span id="mouse"></span>
+        <div class="header-controls">
+            <input type="number" id="delay" value="1" min="0" max="10" />
+            <div id="switch-background" onclick="switchBackground()" title="Toggle dark mode"></div>
+        </div>
+    </div>
+
+    <h1>WebForms</h1>
+
+    <details>
+        <summary>Степень</summary>
+        <form id="power-form">
+            <h3>Возведение числа в степень</h3>
+            <div class="pair">
+                <label for="base">Основание степени</label>
+                <input type="number" min="0" id="base" onchange="calculatePower()">
+            </div>
+
+            <div class="pair">
+                <label for="exponent">Показатель степени</label>
+                <input type="number" id="exponent" onchange="calculatePower()">
+            </div>
+
+            <div class="pair">
+                <div>Степень:</div>
+                <div id="power-result">-</div>
+            </div>
+        </form>
+    </details>
+
+    <details>
+        <summary>Форма регистрации</summary>
+        <form>
+            <h3>Форма регистрации</h3>
+            <div id="registration">
+                <div>
+                    <div class="pair">
+                        <label for="last_name">Фамилия:</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Введите Вашу фамилию" />
+                    </div>
+                    <div class="pair">
+                        <label for="first_name">Имя:</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Введите Ваше имя">
+                    </div>
+                    <div class="pair">
+                        <label for="birth-date">Дата рождения:</label>
+                        <input type="date" name="birth-date" id="birth-date">
+                    </div>
+
+                    <fieldset>
+                        <legend>Какие Вы знаете языки?</legend>
+                        <input type="checkbox" id="ru"><label for="ru">Русский</label><br>
+                        <input type="checkbox" id="en"><label for="en">English</label><br>
+                        <input type="checkbox" id="de"><label for="de">Deutsche</label><br>
+                        <input type="checkbox" id="it"><label for="it">Italian</label><br>
+                        <input type="checkbox" id="sp"><label for="sp">Espaniol</label><br>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Выберите форму обучения</legend>
+                        <input type="radio" name="learning-form" id="stacionar"><label for="stacionar">Стационар</label>
+                        <input type="radio" name="learning-form" id="semistacionar"><label for="semistacionar">Полустационар</label>
+                    </fieldset>
+
+                    <div class="pair">
+                        <label for="specialty">Выберите специальность</label>
+                        <select id="specialty">
+                            <option disabled selected>--- Выберите специальность ---</option>
+                            <option>РПО</option>
+                            <option>Сети</option>
+                            <option>Дизайн</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="upload-photo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iMC4zNWVtIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzk5OSI+UGhvdG8gcGxhY2Vob2xkZXI8L3RleHQ+PC9zdmc+" alt="Student's photo" title="Student's photo" id="photo">
+                    <input type="file" name="students-photo" id="students-photo" onchange="setImage()" accept="image/*">
+                </div>
+            </div>
+        </form>
+    </details>
+
+    <div id="clock">
+        <h3>Clock</h3>
+        <div id="time-of-day">
+            <span id="hours">00</span>:
+            <span id="minutes">00</span>:
+            <span id="seconds">00</span>
+        </div>
+        <div id="current-date">
+            <span id="day">01</span>.
+            <span id="month">01</span>.
+            <span id="years">2023</span>
+        </div>
+        <div id="weekday">Monday</div>
+        <div>
+            <input type="checkbox" name="show-date" id="show-date" onchange="toggleDateDisplay()" /><label for="show-date">Показать дату</label>
+            <input type="checkbox" name="show-weekday" id="show-weekday" onchange="toggleWeekdayDisplay()" /><label for="show-weekday">Показать день недели</label>
+        </div>
+    </div>
+
+    <div id="countdown-timer">
+        <div id="countdown-timer-controls">
+            <h2>Countdown Timer</h2>
+            <input type="date" id="target-date" />
+            <input type="time" id="target-time" />
+            <input type="button" id="btn-start" value="Start" onclick="startCountdown()" />
+        </div>
+
+        <div id="display">
+            <div class="time-block">
+                <div id="years-unit" class="time-unit">0</div>
+                <div class="time-marker">Years</div>
+            </div>
+            <div class="time-block">
+                <div id="months-unit" class="time-unit">0</div>
+                <div class="time-marker">Months</div>
+            </div>
+            <div class="time-block">
+                <div id="days-unit" class="time-unit">0</div>
+                <div class="time-marker">Days</div>
+            </div>
+            <div class="time-block">
+                <div id="hours-unit" class="time-unit">0</div>
+                <div class="time-marker">Hours</div>
+            </div>
+            <div class="time-block">
+                <div id="minutes-unit" class="time-unit">0</div>
+                <div class="time-marker">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div id="seconds-unit" class="time-unit">0</div>
+                <div class="time-marker">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>// Theme switching functionality
+        function switchBackground() {
+            document.body.classList.toggle('light');
+            document.body.classList.toggle('dark');
+        }
+
+        // Mouse position tracking
+        document.addEventListener('mousemove', (e) => {
+            document.getElementById('mouse').textContent = `Mouse: ${e.clientX}, ${e.clientY}`;
+        });
+
+        // Power calculation
+        function calculatePower() {
+            const base = parseFloat(document.getElementById('base').value);
+            const exponent = parseFloat(document.getElementById('exponent').value);
+
+            if (isNaN(base) || isNaN(exponent)) {
+                document.getElementById('power-result').textContent = '-';
+                return;
+            }
+
+            const result = Math.pow(base, exponent);
+            document.getElementById('power-result').textContent = result.toLocaleString();
+        }
+
+        // Image upload preview
+        function setImage() {
+            const fileInput = document.getElementById('students-photo');
+            const img = document.getElementById('photo');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        // Clock functionality
+        function updateClock() {
+            const now = new Date();
+
+            // Update time
+            document.getElementById('hours').textContent = now.getHours().toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = now.getSeconds().toString().padStart(2, '0');
+
+            // Update date
+            document.getElementById('day').textContent = now.getDate().toString().padStart(2, '0');
+            document.getElementById('month').textContent = (now.getMonth() + 1).toString().padStart(2, '0');
+            document.getElementById('years').textContent = now.getFullYear();
+
+            // Update weekday
+            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            document.getElementById('weekday').textContent = weekdays[now.getDay()];
+        }
+
+        // Toggle date display
+        function toggleDateDisplay() {
+            const dateDisplay = document.getElementById('current-date');
+            dateDisplay.style.display = document.getElementById('show-date').checked ? 'block' : 'none';
+        }
+
+        // Toggle weekday display
+        function toggleWeekdayDisplay() {
+            const weekdayDisplay = document.getElementById('weekday');
+            weekdayDisplay.style.display = document.getElementById('show-weekday').checked ? 'block' : 'none';
+        }
+
+        // Countdown timer
+        let countdownInterval;
+
+        function startCountdown() {
+            // Clear any existing countdown
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            const dateInput = document.getElementById('target-date').value;
+            const timeInput = document.getElementById('target-time').value;
+
+            if (!dateInput || !timeInput) {
+                alert('Please select both date and time');
+                return;
+            }
+
+            const targetDateTime = new Date(`${dateInput}T${timeInput}`);
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = targetDateTime - now;
+
+                if (diff <= 0) {
+                    clearInterval(countdownInterval);
+                    alert('Countdown finished!');
+                    return;
+                }
+
+                // Calculate time components
+                const seconds = Math.floor(diff / 1000) % 60;
+                const minutes = Math.floor(diff / (1000 * 60)) % 60;
+                const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30; // Approximation
+                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)) % 12;
+                const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+
+                // Update display
+                document.getElementById('seconds-unit').textContent = seconds;
+                document.getElementById('minutes-unit').textContent = minutes;
+                document.getElementById('hours-unit').textContent = hours;
+                document.getElementById('days-unit').textContent = days;
+                document.getElementById('months-unit').textContent = months;
+                document.getElementById('years-unit').textContent = years;
+            }
+
+            // Update immediately and set interval
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            // Start the clock
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Set default values for date displays
+            document.getElementById('show-date').checked = true;
+            document.getElementById('show-weekday').checked = true;
+
+            // Set minimum date for date inputs to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('target-date').min = today;
+            document.getElementById('birth-date').max = today;
+        };</script>
+</body>
+</html>

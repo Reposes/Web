@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>WebForms</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: Roboto Condensed;
+            font-size: 32px;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #switch-background {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+        }
+
+        .light {
+            background: #D8D8D8;
+            color: #323232;
+        }
+
+            .light #switch-background {
+                background-image: url("img/moon.png");
+            }
+
+        .dark {
+            background: #323232;
+            color: #D8D8D8;
+        }
+
+            .dark #switch-background {
+                filter: brightness(0) invert(1);
+                background-image: url("img/sun.png");
+            }
+
+        form {
+            border: solid 1px;
+            border-radius: 10px;
+            margin: 5%;
+            padding: 5%;
+            box-shadow: 0px 0px 15px 15px grey;
+        }
+
+        .pair {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        input, select {
+            font-size: 24px;
+        }
+
+        #power-form input {
+            width: 24%;
+        }
+
+        input[type=checkbox], input[type=radio] {
+            width: 24px;
+            height: 24px;
+        }
+
+        fieldset {
+            width: 46%;
+        }
+
+        #registration {
+            display: flex;
+        }
+
+        #upload-photo {
+            border: solid 1px;
+            width: 59vh;
+            height: 80vh;
+        }
+
+            #upload-photo img {
+                border: solid 1px;
+                width: 38vh;
+                height: 58vh;
+            }
+
+        #clock {
+            text-align: center;
+            border-top: solid 1px;
+            border-bottom: solid 1px;
+        }
+
+        #display {
+            border: solid 1px;
+            font-size: 32px;
+            display: flex;
+            justify-content: space-around;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .time-block {
+            border: solid 3px;
+            border-radius: 10px;
+        }
+
+        .time-unit {
+            font-size: 48px;
+            color: #ffffff;
+            width: 148px;
+            height: 148px;
+            background-color: Highlight;
+        }
+
+        .time-marker {
+            border: solid 1px;
+            background-color: rgb(200, 0, 0);
+            color: aliceblue;
+        }
+
+        .time-unit, .time-marker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #countdown-timer-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #debug {
+            display: none; /* cкрываем отладочную информацию */
+        }
+    </style>
+</head>
+<body class="light">
+    <div id="header">
+        Header
+        <span id="mouse"></span>
+        <div style="display:flex;justify-content:space-between;margin:0 1%;">
+            <input type="number" id="delay" value="1" min="0" max="10" style="width:40%;" />
+            <div id="switch-background" onclick="SwitchBackground()"></div>
+        </div>
+    </div>
+    <h1>WebForms</h1>
+
+    <!-- Остальная часть HTML остается без изменений -->
+    <details>
+        <summary>Степень</summary>
+        <form action="handler.php" method="post" id="power-form">
+            <h3>Возведение числа в степень</h3>
+            <div class="pair">
+                <label for="base">Основание степени</label>
+                <input type="number" min="0" id="base" onchange="Power()">
+            </div>
+            <br>
+
+            <div class="pair">
+                <label for="exponent">Показатель степени</label>
+                <input type="number" id="exponent" onchange="Power()">
+            </div>
+            <br>
+
+            <div class="pair">
+                <div>Степень:</div>
+                <div id="power"></div>
+            </div>
+        </form>
+    </details>
+    <details>
+        <summary>Форма регистрации</summary>
+        <form action="handler.php" method="post">
+            <h3>Форма регистрации</h3>
+            <div id="registration">
+                <div>
+                    <div class="pair">
+                        <label for="last_name">Фамилия:</label>
+                        <input type="text" name="last_name" id="last_name" placeholder="Введите Вашу фамилию" />
+                    </div>
+                    <div class="pair">
+                        <label for="first_name">Имя:</label>
+                        <input type="text" name="first_name" id="first_name" placeholder="Введите Ваше имя">
+                    </div>
+                    <div class="pair">
+                        <label for="birth-date">Дата рождения:</label>
+                        <input type="date" name="birth-date" id="birth-date">
+                    </div>
+
+                    <fieldset>
+                        <legend>Какие Вы знаете языки?</legend>
+                        <input type="checkbox" id="ru"><label for="ru">Русский	</label><br>
+                        <input type="checkbox" id="en"><label for="en">English	</label><br>
+                        <input type="checkbox" id="de"><label for="de">Deutsche	</label><br>
+                        <input type="checkbox" id="it"><label for="it">Italian	</label><br>
+                        <input type="checkbox" id="sp"><label for="sp">Espaniol	</label><br>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Выберите форму обучения</legend>
+                        <input type="radio" name="learning-form" id="stacionar"><label for="stacionar">Стационар</label>
+                        <input type="radio" name="learning-form" id="semistacionar"><label for="semistacionar">Полустационар</label>
+                    </fieldset>
+                    <select>
+                        <option disabled selected="selected"> --- Выберите специальность --- </option>
+                        <option>РПО</option>
+                        <option>Сети</option>
+                        <option>Дизайн</option>
+                    </select>
+                </div>
+                <div id="upload-photo">
+                    <img src="" alt="Students photo" title="Students photo" id="photo">
+                    <input type="file" name="students-photo" id="students-photo" onchange="setImage()">
+                </div>
+            </div>
+        </form>
+    </details>
+
+    <!------------------------------- Timer -------------------------------------------->
+    <div id="full-time"></div>
+    <div id="clock">
+        <h3>Clock</h3>
+        <div id="time-of-day">
+            <span id="hours"></span>:
+            <span id="minutes"></span>:
+            <span id="seconds"></span>
+        </div>
+        <div id="current-date">
+            <span id="years"></span>.
+            <span id="month"></span>.
+            <span id="day"></span>
+        </div>
+        <div id="weekday"></div>
+        <div>
+            <input type="checkbox" name="show-date" id="show-date" /><label for="show-date">Показать дату</label>
+            <input type="checkbox" name="show-weekday" id="show-weekday" /><label for="show-weekday">Показать день недели</label>
+        </div>
+    </div>
+
+    <!-----------------------------   Countdown timer    ---------------------------------->
+    <div id="countdown-timer">
+        <div id="countdown-timer-controls">
+            <h2>Countdown timer</h2>
+            <input type="datetime-local" id="target-datetime" />
+            <input type="button" id="btn-start" name="btn-start" value="Start" />
+        </div>
+
+        <div id="debug">
+            <div id="target-date-value"></div>
+            <div id="target-time-value"></div>
+        </div>
+
+        <div id="display">
+            <div class="time-block">
+                <div id="years-unit" class="time-unit"></div>
+                <div id="years-marker" class="time-marker">Years</div>
+            </div>
+            <div class="time-block">
+                <div id="months-unit" class="time-unit"></div>
+                <div id="months-marker" class="time-marker">Months</div>
+            </div>
+            <div class="time-block">
+                <div id="days-unit" class="time-unit"></div>
+                <div id="days-marker" class="time-marker">Days</div>
+            </div>
+            <div class="time-block">
+                <div id="hours-unit" class="time-unit"></div>
+                <div id="hours-marker" class="time-marker">Hours</div>
+            </div>
+            <div class="time-block">
+                <div id="minutes-unit" class="time-unit"></div>
+                <div id="minutes-marker" class="time-marker">Minutes</div>
+            </div>
+            <div class="time-block">
+                <div id="seconds-unit" class="time-unit"></div>
+                <div id="seconds-marker" class="time-marker">Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <script>// Исправленные функции
+        function Power() {
+            let base = document.getElementById("base").value;
+            let exponent = document.getElementById("exponent").value;
+            document.getElementById("power").innerHTML = base ** exponent;
+        }
+
+        document.addEventListener("mousemove", GetMouseCoords);
+
+        function GetMouseCoords(event) {
+            let x = event.clientX;
+            let y = event.clientY;
+            document.getElementById("mouse").innerHTML = `X = ${x}, Y = ${y}`;
+        }
+
+        function SwitchBackground() {
+            let delay = document.getElementById('delay').value;
+            document.body.style.transition = `background-color ${delay}s, color ${delay}s`;
+            document.getElementById('switch-background').style.transition = `background-image ${delay}s`;
+            document.body.className = document.body.className === "light" ? "dark" : "light";
+        }
+
+        function setImage() {
+            let filename = document.getElementById("students-photo");
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("photo").src = e.target.result;
+            }
+            reader.readAsDataURL(filename.files[0]);
+        }
+
+        // Таймер
+        let countdownTimer = null; // Исправлено: было countdownTimver
+        let countDaysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        document.body.onload = function tick_timer() {
+            let time = new Date();
+            document.getElementById("full-time").innerHTML = time;
+
+            // Current time
+            document.getElementById("hours").innerHTML = addLeadingZero(time.getHours());
+            document.getElementById("minutes").innerHTML = addLeadingZero(time.getMinutes());
+            document.getElementById("seconds").innerHTML = addLeadingZero(time.getSeconds());
+
+            // Current day
+            document.getElementById("years").innerHTML = addLeadingZero(time.getFullYear());
+            document.getElementById("month").innerHTML = addLeadingZero(time.getMonth() + 1);
+            document.getElementById("day").innerHTML = addLeadingZero(time.getDate());
+
+            // Weekday
+            document.getElementById("weekday").innerHTML = time.toLocaleDateString("ru", {weekday: 'long'});
+
+            // Checkboxes:
+            document.getElementById("current-date").style.visibility = document.getElementById("show-date").checked ? "visible" : "hidden";
+            document.getElementById("weekday").style.visibility = document.getElementById("show-weekday").checked ? "visible" : "hidden";
+
+            setTimeout(tick_timer, 1000);
+        }
+
+        function addLeadingZero(number) {
+            return number < 10 ? "0" + number : number;
+        }
+
+        // Обработчик для кнопки таймера
+        document.getElementById("btn-start").onclick = function startCountdownTimer() {
+            let targetDatetimeControl = document.getElementById("target-datetime");
+            let btnStart = document.getElementById("btn-start");
+
+            // Проверяем, что дата и время выбраны
+            if (!targetDatetimeControl.value) {
+                alert("Пожалуйста, выберите дату и время");
+                return;
+            }
+
+            targetDatetimeControl.disabled = !targetDatetimeControl.disabled;
+
+            if (btnStart.value === "Start") {
+                btnStart.value = "Stop";
+                tickCountdown();
+                countdownTimer = setInterval(updateCountdown, 1000);
+            } else {
+                btnStart.value = "Start";
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                document.getElementById("target-date-value").innerHTML = "Waiting...";
+                document.getElementById("target-time-value").innerHTML = "Waiting...";
+            }
+        }
+
+        function tickCountdown() {
+            let targetDatetimeControl = document.getElementById("target-datetime");
+
+            if (!targetDatetimeControl.value) {
+                console.log("Дата и время не выбраны");
+                return;
+            }
+
+            // Создаем дату из значения input[type=datetime-local]
+            // Это автоматически учитывает локальный часовой пояс пользователя
+            endDate = new Date(targetDatetimeControl.value);
+
+            // Проверяем, что дата корректна
+            if (isNaN(endDate.getTime())) {
+                console.log("Некорректная дата");
+                return;
+            }
+
+            // Debug target datetime
+            document.getElementById("target-date-value").innerHTML = endDate.toString();
+            document.getElementById("target-time-value").innerHTML = endDate.toTimeString();
+        }
+
+        function updateCountdown() {
+            if (!endDate) return;
+
+            const now = new Date();
+            const distance = endDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('display').innerHTML = 'Время вышло!';
+                document.getElementById("btn-start").value = "Start";
+                document.getElementById("target-datetime").disabled = false;
+                return;
+            }
+
+            const timeLeft = calculateTimeLeft(now, endDate);
+
+            function toggleBlock(id, value) {
+                const block = document.getElementById(id).parentElement;
+                document.getElementById(id).textContent = value;
+                if (id !== 'seconds-unit') {
+                    block.style.display = value === 0 ? "none" : "block";
+                }
+            }
+
+            toggleBlock('years-unit', timeLeft.years);
+            toggleBlock('months-unit', timeLeft.months);
+            toggleBlock('days-unit', timeLeft.days);
+            toggleBlock('hours-unit', timeLeft.hours);
+            toggleBlock('minutes-unit', timeLeft.minutes);
+            toggleBlock('seconds-unit', timeLeft.seconds);
+        }
+
+        function calculateTimeLeft(now, endDate) {
+            let years = endDate.getFullYear() - now.getFullYear();
+            let months = endDate.getMonth() - now.getMonth();
+            let days = endDate.getDate() - now.getDate();
+            let hours = endDate.getHours() - now.getHours();
+            let minutes = endDate.getMinutes() - now.getMinutes();
+            let seconds = endDate.getSeconds() - now.getSeconds();
+
+            // Корректировки времени
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            if (days < 0) {
+                // Берем количество дней в предыдущем месяце
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                days += prevMonth;
+                months--;
+            }
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
+
+            return { years, months, days, hours, minutes, seconds };
+        }
+
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }</script>
+</body>
+</html>

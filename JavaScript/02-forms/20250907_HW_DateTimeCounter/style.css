@@ -132,3 +132,15 @@ fieldset {
     justify-content: center;
     align-items: center;
 }
+
+#countdown-timer-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#debug {
+    display: none; /* cкрываем отладочную информацию */
+}
