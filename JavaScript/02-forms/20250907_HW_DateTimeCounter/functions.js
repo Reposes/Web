@@ -199,7 +199,7 @@ function calculateTimeLeft(now, endDate) {
             year--;
         }
         // копия массива
-        let daysInMonths = countDaysMonths;
+        let daysInMonths = [...countDaysMonths];  // если так daysInMonths = countDaysMonths - это ссылка
         // учитываем високосный год
         if (isLeapYear(year)) {
             daysInMonths[1] = 29;
